@@ -1,0 +1,21 @@
+{
+  "name": "تفسیر معنوی",
+  "short_name": "تفسیر معنوی",
+  "description": "نمایش تفسیر معنوی سوره‌های قرآن کریم",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0f1115",
+  "theme_color": "#0f1115",
+  "lang": "fa",
+  "dir": "rtl",
+  "categories": ["books", "education", "lifestyle"],
+  "icons": [
+    { "src": "icon/tm-64.png",  "sizes": "64x64",   "type": "image/png" },
+    { "src": "icon/tm-128.png", "sizes": "128x128", "type": "image/png" },
+    { "src": "icon/tm-256.png", "sizes": "256x256", "type": "image/png" },
+    { "src": "icon/tm-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon/tm-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
