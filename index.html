@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>تفسیر معنوی</title>
 
-<!-- ================== PWA ================== -->
 <link rel="manifest" href="./manifest.json">
 <meta name="theme-color" content="#0f1115">
 <meta name="description" content="تفسیر معنوی">
@@ -16,12 +15,10 @@
 <link rel="icon" type="image/png" sizes="64x64" href="icon/tm-64.png">
 <link rel="icon" type="image/png" sizes="128x128" href="icon/tm-128.png">
 <link rel="icon" type="image/png" sizes="256x256" href="icon/tm-256.png">
-<!-- ======================================== -->
 
 <link rel="stylesheet" href="./bootstrap.rtl.min.css">
 
 <script>
-/* اعمال سریع تنظیمات قبل از رندر */
 (function() {
   try {
     const s = JSON.parse(localStorage.getItem('manavi_settings_v1') || 'null');
@@ -57,102 +54,50 @@
   --overlay-bg: rgba(0,0,0,.6);
 }
 
-/* ============================================================
-   تم‌ها
-   ============================================================ */
-
-/* روشن */
 [data-theme="light"] {
-  --bg: #f4f6fa;
-  --bg-2: #ffffff;
-  --bg-3: #eef1f6;
-  --fg: #1a1f2a;
-  --fg-muted: #6b7280;
-  --accent: #2563eb;
-  --accent-2: #059669;
-  --border: #e2e6ed;
-  --shadow: 0 6px 24px rgba(30,41,59,.08);
+  --bg: #f4f6fa; --bg-2: #ffffff; --bg-3: #eef1f6;
+  --fg: #1a1f2a; --fg-muted: #6b7280;
+  --accent: #2563eb; --accent-2: #059669;
+  --border: #e2e6ed; --shadow: 0 6px 24px rgba(30,41,59,.08);
   --overlay-bg: rgba(15,23,42,.45);
 }
-
-/* کرم — روشن (پس‌زمینه rgb(235,235,206)) */
 [data-theme="cream"] {
-  --bg: rgb(235,235,206);
-  --bg-2: #f3f3d7;
-  --bg-3: #e0e0bd;
-  --fg: #2b2b1b;
-  --fg-muted: #6b6b4d;
-  --accent: #5a7d2a;
-  --accent-2: #a66b3a;
-  --border: #cfcfa5;
-  --shadow: 0 6px 24px rgba(70,70,40,.12);
+  --bg: rgb(235,235,206); --bg-2: #f3f3d7; --bg-3: #e0e0bd;
+  --fg: #2b2b1b; --fg-muted: #6b6b4d;
+  --accent: #5a7d2a; --accent-2: #a66b3a;
+  --border: #cfcfa5; --shadow: 0 6px 24px rgba(70,70,40,.12);
   --overlay-bg: rgba(45,45,25,.45);
 }
-
-/* کاهی — روشن */
 [data-theme="wheat"] {
-  --bg: #f0dfb8;
-  --bg-2: #f7ebce;
-  --bg-3: #e6d1a0;
-  --fg: #3a2e14;
-  --fg-muted: #7d6b42;
-  --accent: #8b6914;
-  --accent-2: #a0522d;
-  --border: #d9c290;
-  --shadow: 0 6px 24px rgba(80,60,20,.12);
+  --bg: #f0dfb8; --bg-2: #f7ebce; --bg-3: #e6d1a0;
+  --fg: #3a2e14; --fg-muted: #7d6b42;
+  --accent: #8b6914; --accent-2: #a0522d;
+  --border: #d9c290; --shadow: 0 6px 24px rgba(80,60,20,.12);
   --overlay-bg: rgba(50,40,20,.45);
 }
-
-/* غروب */
 [data-theme="sunset"] {
-  --bg: #1a0e14;
-  --bg-2: #251520;
-  --bg-3: #331c2c;
-  --fg: #f5e5eb;
-  --fg-muted: #b08898;
-  --accent: #fb923c;
-  --accent-2: #f472b6;
-  --border: #3d2232;
-  --shadow: 0 6px 24px rgba(0,0,0,.55);
+  --bg: #1a0e14; --bg-2: #251520; --bg-3: #331c2c;
+  --fg: #f5e5eb; --fg-muted: #b08898;
+  --accent: #fb923c; --accent-2: #f472b6;
+  --border: #3d2232; --shadow: 0 6px 24px rgba(0,0,0,.55);
 }
-
-/* جنگل */
 [data-theme="forest"] {
-  --bg: #0d1712;
-  --bg-2: #14231b;
-  --bg-3: #1c3026;
-  --fg: #dff0e5;
-  --fg-muted: #7fa38d;
-  --accent: #4ade80;
-  --accent-2: #86efac;
-  --border: #24402f;
-  --shadow: 0 6px 24px rgba(0,0,0,.45);
+  --bg: #0d1712; --bg-2: #14231b; --bg-3: #1c3026;
+  --fg: #dff0e5; --fg-muted: #7fa38d;
+  --accent: #4ade80; --accent-2: #86efac;
+  --border: #24402f; --shadow: 0 6px 24px rgba(0,0,0,.45);
 }
-
-/* قهوه */
 [data-theme="coffee"] {
-  --bg: #1a1410;
-  --bg-2: #241c16;
-  --bg-3: #32271e;
-  --fg: #f0e5d8;
-  --fg-muted: #a89684;
-  --accent: #d4a373;
-  --accent-2: #e9c46a;
-  --border: #3d2f24;
-  --shadow: 0 6px 24px rgba(0,0,0,.55);
+  --bg: #1a1410; --bg-2: #241c16; --bg-3: #32271e;
+  --fg: #f0e5d8; --fg-muted: #a89684;
+  --accent: #d4a373; --accent-2: #e9c46a;
+  --border: #3d2f24; --shadow: 0 6px 24px rgba(0,0,0,.55);
 }
-
-/* برفی */
 [data-theme="snow"] {
-  --bg: #eef2f7;
-  --bg-2: #ffffff;
-  --bg-3: #e3e9f2;
-  --fg: #1e293b;
-  --fg-muted: #64748b;
-  --accent: #0ea5e9;
-  --accent-2: #14b8a6;
-  --border: #d4dbe6;
-  --shadow: 0 6px 24px rgba(30,41,59,.08);
+  --bg: #eef2f7; --bg-2: #ffffff; --bg-3: #e3e9f2;
+  --fg: #1e293b; --fg-muted: #64748b;
+  --accent: #0ea5e9; --accent-2: #14b8a6;
+  --border: #d4dbe6; --shadow: 0 6px 24px rgba(30,41,59,.08);
   --overlay-bg: rgba(15,23,42,.4);
 }
 
@@ -257,9 +202,7 @@ body {
   opacity: .5;
   margin: 0 6px;
 }
-.topbar-current .tb-ayah {
-  color: var(--accent);
-}
+.topbar-current .tb-ayah { color: var(--accent); }
 
 .layout { padding-top: var(--topbar-h); min-height: 100vh; }
 
@@ -519,6 +462,9 @@ body {
 }
 .backdrop.visible { opacity: 1; pointer-events: auto; }
 
+/* ============================================================
+   پنل تنظیمات
+   ============================================================ */
 .settings-overlay {
   position: fixed;
   inset: 0;
@@ -564,7 +510,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  z-index: 2;
+  z-index: 3;
   border-radius: 18px 18px 0 0;
   transition: background-color .3s ease, border-color .3s ease;
 }
@@ -597,10 +543,43 @@ body {
   border-color: var(--accent);
 }
 
+/* --- تب‌های تنظیمات --- */
+.settings-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-2);
+  padding: 0 12px;
+  gap: 2px;
+  position: sticky;
+  top: 67px;
+  z-index: 2;
+}
+.settings-tab {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--fg-muted);
+  padding: 11px 6px 10px;
+  font-family: inherit;
+  font-size: .85rem;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: color .15s, border-color .15s, background .15s;
+  border-radius: 6px 6px 0 0;
+}
+.settings-tab:hover { color: var(--fg); background: var(--bg-3); }
+.settings-tab.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
 .settings-body { padding: 20px; }
 
-.settings-section { margin-bottom: 26px; }
-.settings-section:last-child { margin-bottom: 4px; }
+.settings-tabpanel { display: block; }
+.settings-tabpanel.hidden { display: none; }
+
+.settings-section { margin-bottom: 24px; }
+.settings-section:last-child { margin-bottom: 0; }
 
 .settings-section h3 {
   font-size: .85rem;
@@ -620,6 +599,7 @@ body {
   background: var(--border);
 }
 
+/* --- کارت‌های تم --- */
 .theme-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
@@ -665,8 +645,7 @@ body {
   border: 1px solid rgba(0,0,0,.12);
 }
 .theme-preview .pv-dot {
-  width: 9px;
-  height: 9px;
+  width: 9px; height: 9px;
   border-radius: 50%;
   background: var(--p-accent);
   box-shadow: 0 0 8px var(--p-accent);
@@ -695,8 +674,7 @@ body {
   position: absolute;
   top: 6px;
   left: 6px;
-  width: 20px;
-  height: 20px;
+  width: 20px; height: 20px;
   border-radius: 50%;
   background: var(--accent);
   color: var(--bg-2);
@@ -709,6 +687,7 @@ body {
 }
 .theme-card.active .theme-check { display: flex; }
 
+/* --- اندازه فونت --- */
 .font-row {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -754,6 +733,145 @@ body {
 }
 .font-btn.active .lbl { color: var(--fg); }
 
+/* --- تنظیمات جستجو --- */
+.settings-body select,
+.settings-body input[type="number"] {
+  background: var(--bg-3);
+  color: var(--fg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-family: inherit;
+  cursor: pointer;
+  outline: none;
+}
+.settings-body select:focus,
+.settings-body input[type="number"]:focus { border-color: var(--accent); }
+
+/* --- تب بروزرسانی --- */
+.version-card {
+  background: var(--bg-3);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 4px 0;
+  margin-bottom: 16px;
+}
+.version-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px dashed var(--border);
+}
+.version-row:last-child { border-bottom: none; }
+
+.version-label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.version-title {
+  font-size: .88rem;
+  color: var(--fg);
+  font-weight: 500;
+}
+.version-sub {
+  font-size: .68rem;
+  color: var(--fg-muted);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.version-values {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: ui-monospace, 'Courier New', monospace;
+  direction: ltr;
+}
+.version-badge {
+  background: var(--bg);
+  color: var(--fg-muted);
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: .78rem;
+  border: 1px solid var(--border);
+  white-space: nowrap;
+}
+.version-badge.remote {
+  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+}
+.version-badge.remote.newer {
+  color: var(--accent-2);
+  border-color: color-mix(in srgb, var(--accent-2) 60%, var(--border));
+  background: color-mix(in srgb, var(--accent-2) 12%, var(--bg));
+}
+.version-arrow {
+  color: var(--fg-muted);
+  font-size: .9rem;
+}
+.hidden { display: none !important; }
+
+.update-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.update-btn {
+  background: var(--bg-3);
+  color: var(--fg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-family: inherit;
+  font-size: .9rem;
+  cursor: pointer;
+  transition: all .15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.update-btn:hover {
+  background: color-mix(in srgb, var(--accent) 10%, var(--bg-3));
+  border-color: var(--accent);
+}
+.update-btn.primary {
+  background: color-mix(in srgb, var(--accent) 15%, var(--bg-3));
+  border-color: var(--accent);
+  color: var(--accent);
+  font-weight: 500;
+}
+.update-btn.app {
+  background: color-mix(in srgb, var(--accent-2) 14%, var(--bg-3));
+  border-color: var(--accent-2);
+  color: var(--accent-2);
+  font-weight: 500;
+}
+.update-btn.data {
+  background: color-mix(in srgb, var(--accent) 14%, var(--bg-3));
+  border-color: var(--accent);
+  color: var(--accent);
+  font-weight: 500;
+}
+.update-btn:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+}
+
+.update-status {
+  margin-top: 14px;
+  font-size: .82rem;
+  color: var(--fg-muted);
+  text-align: center;
+  min-height: 1.4em;
+  line-height: 1.5;
+}
+.update-status.ok { color: var(--accent-2); }
+.update-status.err { color: #ef4444; }
+.update-status.loading { color: var(--accent); }
+
+/* --- واکنش‌گرا --- */
 @media (max-width: 820px) {
   .content { margin-right: 0; padding: 14px 14px 100px; }
   .sidebar {
@@ -849,20 +967,6 @@ mark[data-search-hl] {
   border-radius: 3px;
   font-weight: 500;
 }
-
-.settings-body select,
-.settings-body input[type="number"] {
-  background: var(--bg-3);
-  color: var(--fg);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 4px 8px;
-  font-family: inherit;
-  cursor: pointer;
-  outline: none;
-}
-.settings-body select:focus,
-.settings-body input[type="number"]:focus { border-color: var(--accent); }
 </style>
 </head>
 <body>
@@ -922,105 +1026,167 @@ mark[data-search-hl] {
       </button>
     </div>
 
+    <!-- تب‌های تنظیمات -->
+    <div class="settings-tabs">
+      <button class="settings-tab active" data-stab="appearance">🎨 ظاهر</button>
+      <button class="settings-tab" data-stab="search">🔍 جستجو</button>
+      <button class="settings-tab" data-stab="update">🔄 بروزرسانی</button>
+    </div>
+
     <div class="settings-body">
 
-      <section class="settings-section">
-        <h3>🎨 تم رنگی</h3>
-        <div class="theme-grid" id="themeGrid">
-          <button class="theme-card" data-theme="dark"   style="--p-bg:#0f1115;--p-fg:#e6e8ec;--p-accent:#5fa8ff;--p-accent2:#6ee7a7;">
-            <div class="theme-preview"><span class="pv-dot"></span><span class="pv-line"></span><span class="pv-dot alt"></span></div>
-            <span class="theme-name">شبانه</span>
-            <span class="theme-check">✓</span>
-          </button>
-          <button class="theme-card" data-theme="light"  style="--p-bg:#f4f6fa;--p-fg:#1a1f2a;--p-accent:#2563eb;--p-accent2:#059669;">
-            <div class="theme-preview"><span class="pv-dot"></span><span class="pv-line"></span><span class="pv-dot alt"></span></div>
-            <span class="theme-name">روشن</span>
-            <span class="theme-check">✓</span>
-          </button>
-          <button class="theme-card" data-theme="cream" style="--p-bg:rgb(235,235,206);--p-fg:#2b2b1b;--p-accent:#5a7d2a;--p-accent2:#a66b3a;">
-            <div class="theme-preview"><span class="pv-dot"></span><span class="pv-line"></span><span class="pv-dot alt"></span></div>
-            <span class="theme-name">کرم</span>
-            <span class="theme-check">✓</span>
-          </button>
-          <button class="theme-card" data-theme="wheat" style="--p-bg:#f0dfb8;--p-fg:#3a2e14;--p-accent:#8b6914;--p-accent2:#a0522d;">
-            <div class="theme-preview"><span class="pv-dot"></span><span class="pv-line"></span><span class="pv-dot alt"></span></div>
-            <span class="theme-name">کاهی</span>
-            <span class="theme-check">✓</span>
-          </button>
-          <button class="theme-card" data-theme="sunset" style="--p-bg:#1a0e14;--p-fg:#f5e5eb;--p-accent:#fb923c;--p-accent2:#f472b6;">
-            <div class="theme-preview"><span class="pv-dot"></span><span class="pv-line"></span><span class="pv-dot alt"></span></div>
-            <span class="theme-name">غروب</span>
-            <span class="theme-check">✓</span>
-          </button>
-          <button class="theme-card" data-theme="forest" style="--p-bg:#0d1712;--p-fg:#dff0e5;--p-accent:#4ade80;--p-accent2:#86efac;">
-            <div class="theme-preview"><span class="pv-dot"></span><span class="pv-line"></span><span class="pv-dot alt"></span></div>
-            <span class="theme-name">جنگل</span>
-            <span class="theme-check">✓</span>
-          </button>
-          <button class="theme-card" data-theme="coffee" style="--p-bg:#1a1410;--p-fg:#f0e5d8;--p-accent:#d4a373;--p-accent2:#e9c46a;">
-            <div class="theme-preview"><span class="pv-dot"></span><span class="pv-line"></span><span class="pv-dot alt"></span></div>
-            <span class="theme-name">قهوه</span>
-            <span class="theme-check">✓</span>
-          </button>
-          <button class="theme-card" data-theme="snow"   style="--p-bg:#eef2f7;--p-fg:#1e293b;--p-accent:#0ea5e9;--p-accent2:#14b8a6;">
-            <div class="theme-preview"><span class="pv-dot"></span><span class="pv-line"></span><span class="pv-dot alt"></span></div>
-            <span class="theme-name">برفی</span>
-            <span class="theme-check">✓</span>
-          </button>
-        </div>
-      </section>
+      <!-- =============== تب ظاهر =============== -->
+      <div class="settings-tabpanel" id="stab-appearance">
 
-      <section class="settings-section">
-        <h3>📖 اندازهٔ متن</h3>
-        <div class="font-row" id="fontRow">
-          <button class="font-btn" data-scale="1"    data-size="15">
-            <span class="fa" style="font-size:14px">آ</span>
-            <span class="lbl">استاندارد</span>
-          </button>
-          <button class="font-btn" data-scale="1.15" data-size="17">
-            <span class="fa" style="font-size:16px">آ</span>
-            <span class="lbl">بزرگ</span>
-          </button>
-          <button class="font-btn" data-scale="1.3"  data-size="19">
-            <span class="fa" style="font-size:18px">آ</span>
-            <span class="lbl">بزرگ‌تر</span>
-          </button>
-          <button class="font-btn" data-scale="1.5"  data-size="22">
-            <span class="fa" style="font-size:20px">آ</span>
-            <span class="lbl">خیلی بزرگ</span>
-          </button>
-          <button class="font-btn" data-scale="1.75" data-size="26">
-            <span class="fa" style="font-size:23px">آ</span>
-            <span class="lbl">عظیم</span>
-          </button>
-        </div>
-      </section>
+        <section class="settings-section">
+          <h3>🎨 تم رنگی</h3>
+          <div class="theme-grid" id="themeGrid">
+            <button class="theme-card" data-theme="dark"   style="--p-bg:#0f1115;--p-fg:#e6e8ec;--p-accent:#5fa8ff;--p-accent2:#6ee7a7;">
+              <div class="theme-preview"><span class="pv-dot"></span><span class="pv-line"></span><span class="pv-dot alt"></span></div>
+              <span class="theme-name">شبانه</span>
+              <span class="theme-check">✓</span>
+            </button>
+            <button class="theme-card" data-theme="light"  style="--p-bg:#f4f6fa;--p-fg:#1a1f2a;--p-accent:#2563eb;--p-accent2:#059669;">
+              <div class="theme-preview"><span class="pv-dot"></span><span class="pv-line"></span><span class="pv-dot alt"></span></div>
+              <span class="theme-name">روشن</span>
+              <span class="theme-check">✓</span>
+            </button>
+            <button class="theme-card" data-theme="cream" style="--p-bg:rgb(235,235,206);--p-fg:#2b2b1b;--p-accent:#5a7d2a;--p-accent2:#a66b3a;">
+              <div class="theme-preview"><span class="pv-dot"></span><span class="pv-line"></span><span class="pv-dot alt"></span></div>
+              <span class="theme-name">کرم</span>
+              <span class="theme-check">✓</span>
+            </button>
+            <button class="theme-card" data-theme="wheat" style="--p-bg:#f0dfb8;--p-fg:#3a2e14;--p-accent:#8b6914;--p-accent2:#a0522d;">
+              <div class="theme-preview"><span class="pv-dot"></span><span class="pv-line"></span><span class="pv-dot alt"></span></div>
+              <span class="theme-name">کاهی</span>
+              <span class="theme-check">✓</span>
+            </button>
+            <button class="theme-card" data-theme="sunset" style="--p-bg:#1a0e14;--p-fg:#f5e5eb;--p-accent:#fb923c;--p-accent2:#f472b6;">
+              <div class="theme-preview"><span class="pv-dot"></span><span class="pv-line"></span><span class="pv-dot alt"></span></div>
+              <span class="theme-name">غروب</span>
+              <span class="theme-check">✓</span>
+            </button>
+            <button class="theme-card" data-theme="forest" style="--p-bg:#0d1712;--p-fg:#dff0e5;--p-accent:#4ade80;--p-accent2:#86efac;">
+              <div class="theme-preview"><span class="pv-dot"></span><span class="pv-line"></span><span class="pv-dot alt"></span></div>
+              <span class="theme-name">جنگل</span>
+              <span class="theme-check">✓</span>
+            </button>
+            <button class="theme-card" data-theme="coffee" style="--p-bg:#1a1410;--p-fg:#f0e5d8;--p-accent:#d4a373;--p-accent2:#e9c46a;">
+              <div class="theme-preview"><span class="pv-dot"></span><span class="pv-line"></span><span class="pv-dot alt"></span></div>
+              <span class="theme-name">قهوه</span>
+              <span class="theme-check">✓</span>
+            </button>
+            <button class="theme-card" data-theme="snow"   style="--p-bg:#eef2f7;--p-fg:#1e293b;--p-accent:#0ea5e9;--p-accent2:#14b8a6;">
+              <div class="theme-preview"><span class="pv-dot"></span><span class="pv-line"></span><span class="pv-dot alt"></span></div>
+              <span class="theme-name">برفی</span>
+              <span class="theme-check">✓</span>
+            </button>
+          </div>
+        </section>
 
-      <section class="settings-section">
-        <h3>🔍 تنظیمات جستجو</h3>
-        <div style="display:flex; flex-direction:column; gap:14px;">
+        <section class="settings-section">
+          <h3>📖 اندازهٔ متن</h3>
+          <div class="font-row" id="fontRow">
+            <button class="font-btn" data-scale="1"    data-size="15">
+              <span class="fa" style="font-size:14px">آ</span>
+              <span class="lbl">استاندارد</span>
+            </button>
+            <button class="font-btn" data-scale="1.15" data-size="17">
+              <span class="fa" style="font-size:16px">آ</span>
+              <span class="lbl">بزرگ</span>
+            </button>
+            <button class="font-btn" data-scale="1.3"  data-size="19">
+              <span class="fa" style="font-size:18px">آ</span>
+              <span class="lbl">بزرگ‌تر</span>
+            </button>
+            <button class="font-btn" data-scale="1.5"  data-size="22">
+              <span class="fa" style="font-size:20px">آ</span>
+              <span class="lbl">خیلی بزرگ</span>
+            </button>
+            <button class="font-btn" data-scale="1.75" data-size="26">
+              <span class="fa" style="font-size:23px">آ</span>
+              <span class="lbl">عظیم</span>
+            </button>
+          </div>
+        </section>
 
-          <label style="font-size:.85rem; display:flex; justify-content:space-between; align-items:center; color:var(--fg); cursor:pointer;">
-            <span>محدوده جستجو</span>
-            <select id="setSearchScope">
-              <option value="current">سورهٔ فعلی</option>
-              <option value="all">کل کتاب</option>
-            </select>
-          </label>
+      </div>
 
-          <label style="font-size:.85rem; display:flex; justify-content:space-between; align-items:center; color:var(--fg); cursor:pointer;">
-            <span>حداکثر نتایج نمایشی</span>
-            <input type="number" id="setSearchLimit" min="1" max="1000000" step="10"
-                   style="width:90px; text-align:center;">
-          </label>
+      <!-- =============== تب جستجو =============== -->
+      <div class="settings-tabpanel hidden" id="stab-search">
+        <section class="settings-section">
+          <h3>🔍 تنظیمات جستجو</h3>
+          <div style="display:flex; flex-direction:column; gap:14px;">
 
-          <label style="font-size:.85rem; display:flex; align-items:center; gap:8px; color:var(--fg); cursor:pointer;">
-            <input type="checkbox" id="setSearchSpace" style="width:16px; height:16px; accent-color:var(--accent);">
-            <span>فاصله معادل «و» (&amp;) — بدون تیک: عبارت دقیق</span>
-          </label>
+            <label style="font-size:.85rem; display:flex; justify-content:space-between; align-items:center; color:var(--fg); cursor:pointer;">
+              <span>محدوده جستجو</span>
+              <select id="setSearchScope">
+                <option value="current">سورهٔ فعلی</option>
+                <option value="all">کل کتاب</option>
+              </select>
+            </label>
 
-        </div>
-      </section>
+            <label style="font-size:.85rem; display:flex; justify-content:space-between; align-items:center; color:var(--fg); cursor:pointer;">
+              <span>حداکثر نتایج نمایشی</span>
+              <input type="number" id="setSearchLimit" min="1" max="1000000" step="10"
+                     style="width:90px; text-align:center;">
+            </label>
+
+            <label style="font-size:.85rem; display:flex; align-items:center; gap:8px; color:var(--fg); cursor:pointer;">
+              <input type="checkbox" id="setSearchSpace" style="width:16px; height:16px; accent-color:var(--accent);">
+              <span>فاصله معادل «و» (&amp;) — بدون تیک: عبارت دقیق</span>
+            </label>
+
+          </div>
+        </section>
+      </div>
+
+      <!-- =============== تب بروزرسانی =============== -->
+      <div class="settings-tabpanel hidden" id="stab-update">
+        <section class="settings-section">
+          <h3>🔄 بروزرسانی</h3>
+
+          <div class="version-card">
+            <div class="version-row">
+              <div class="version-label">
+                <span class="version-title">نسخه اپلیکیشن</span>
+                <span class="version-sub">Application</span>
+              </div>
+              <div class="version-values">
+                <span class="version-badge" id="appVerLocal">—</span>
+                <span class="version-arrow hidden" id="appVerArrow">←</span>
+                <span class="version-badge remote hidden" id="appVerRemote">—</span>
+              </div>
+            </div>
+
+            <div class="version-row">
+              <div class="version-label">
+                <span class="version-title">نسخه داده‌ها</span>
+                <span class="version-sub">Data</span>
+              </div>
+              <div class="version-values">
+                <span class="version-badge" id="dataVerLocal">—</span>
+                <span class="version-arrow hidden" id="dataVerArrow">←</span>
+                <span class="version-badge remote hidden" id="dataVerRemote">—</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="update-actions">
+            <button class="update-btn primary" id="checkUpdateBtn">
+              🔍 بررسی بروزرسانی
+            </button>
+            <button class="update-btn app hidden" id="updateAppBtn">
+              ⬇ بروزرسانی اپلیکیشن
+            </button>
+            <button class="update-btn data hidden" id="updateDataBtn">
+              ⬇ بروزرسانی داده‌ها
+            </button>
+          </div>
+
+          <div class="update-status" id="updateStatus"></div>
+        </section>
+      </div>
 
     </div>
   </div>
@@ -1068,15 +1234,21 @@ mark[data-search-hl] {
 
 <script>
 /* ============================================================
-   ۰) تنظیمات (تم + فونت + جستجو)
+   ۰) نسخه‌ها (باید با sw.js همگام باشد)
+   ============================================================ */
+const APP_VERSION  = '1.0.0';
+const DATA_VERSION = '1.0.0';
+
+/* ============================================================
+   ۱) تنظیمات (تم + فونت + جستجو)
    ============================================================ */
 const SETTINGS_KEY = 'manavi_settings_v1';
 const settings = {
   theme: 'dark',
   scale: 1,
-  searchScope: 'all',      // 'current' | 'all'
+  searchScope: 'all',
   searchLimit: 50,
-  searchSpaceIsAnd: true   // true: فاصله = «و» (&)  |  false: کل عبارت = یک عبارت دقیق
+  searchSpaceIsAnd: true
 };
 
 function loadSettings() {
@@ -1087,13 +1259,8 @@ function loadSettings() {
       if (typeof s.scale === 'number' && s.scale > 0) settings.scale = s.scale;
       if (s.searchScope === 'current' || s.searchScope === 'all') settings.searchScope = s.searchScope;
       if (typeof s.searchLimit === 'number' && s.searchLimit > 0) settings.searchLimit = s.searchLimit;
-
-      // مهاجرت از کلید قدیمی searchSpaceIsOr → searchSpaceIsAnd
-      if (typeof s.searchSpaceIsAnd === 'boolean') {
-        settings.searchSpaceIsAnd = s.searchSpaceIsAnd;
-      } else if (typeof s.searchSpaceIsOr === 'boolean') {
-        settings.searchSpaceIsAnd = !s.searchSpaceIsOr;
-      }
+      if (typeof s.searchSpaceIsAnd === 'boolean') settings.searchSpaceIsAnd = s.searchSpaceIsAnd;
+      else if (typeof s.searchSpaceIsOr === 'boolean') settings.searchSpaceIsAnd = !s.searchSpaceIsOr;
     }
   } catch {}
 }
@@ -1103,23 +1270,19 @@ function saveSettings() {
 }
 
 function applySettings() {
-  // تم
   if (settings.theme && settings.theme !== 'dark') {
     document.documentElement.setAttribute('data-theme', settings.theme);
   } else {
     document.documentElement.removeAttribute('data-theme');
   }
-  // اندازه فونت
   document.documentElement.style.setProperty('--reading-scale', settings.scale);
 
-  // آپدیت theme-color مرورگر
   const metaTheme = document.querySelector('meta[name="theme-color"]');
   if (metaTheme) {
     const bgColor = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim() || '#0f1115';
     metaTheme.setAttribute('content', bgColor);
   }
 
-  // هایلایت کارت‌ها
   document.querySelectorAll('#themeGrid .theme-card').forEach(c => {
     c.classList.toggle('active', c.dataset.theme === settings.theme);
   });
@@ -1127,7 +1290,6 @@ function applySettings() {
     b.classList.toggle('active', Number(b.dataset.scale) === settings.scale);
   });
 
-  // UI تنظیمات جستجو
   const scopeEl = document.getElementById('setSearchScope');
   const limitEl = document.getElementById('setSearchLimit');
   const spaceEl = document.getElementById('setSearchSpace');
@@ -1136,18 +1298,33 @@ function applySettings() {
   if (spaceEl) spaceEl.checked = settings.searchSpaceIsAnd;
 }
 
-/* ---------- اتصال رویدادهای تنظیمات ---------- */
 function initSettingsUI() {
   const overlay = document.getElementById('settingsOverlay');
 
   document.getElementById('settingsBtn').addEventListener('click', () => {
     overlay.classList.add('visible');
+    // بروزرسانی نمایش نسخه‌ها هنگام باز شدن
+    refreshUpdateTab();
   });
   document.getElementById('settingsClose').addEventListener('click', closeSettings);
   overlay.addEventListener('click', (e) => {
     if (e.target === overlay) closeSettings();
   });
 
+  // تب‌های داخلی تنظیمات
+  document.querySelectorAll('.settings-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.settings-tab').forEach(t => {
+        t.classList.toggle('active', t === tab);
+      });
+      document.querySelectorAll('.settings-tabpanel').forEach(p => {
+        p.classList.toggle('hidden', p.id !== 'stab-' + tab.dataset.stab);
+      });
+      if (tab.dataset.stab === 'update') refreshUpdateTab();
+    });
+  });
+
+  // کارت‌های تم
   document.querySelectorAll('#themeGrid .theme-card').forEach(card => {
     card.addEventListener('click', () => {
       settings.theme = card.dataset.theme;
@@ -1156,6 +1333,7 @@ function initSettingsUI() {
     });
   });
 
+  // اندازه فونت
   document.querySelectorAll('#fontRow .font-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       settings.scale = Number(btn.dataset.scale);
@@ -1164,6 +1342,7 @@ function initSettingsUI() {
     });
   });
 
+  // تنظیمات جستجو
   const scopeEl = document.getElementById('setSearchScope');
   const limitEl = document.getElementById('setSearchLimit');
   const spaceEl = document.getElementById('setSearchSpace');
@@ -1185,6 +1364,11 @@ function initSettingsUI() {
     saveSettings();
     rerunSearchIfActive();
   });
+
+  // بروزرسانی
+  document.getElementById('checkUpdateBtn').addEventListener('click', checkForUpdates);
+  document.getElementById('updateAppBtn').addEventListener('click', updateApp);
+  document.getElementById('updateDataBtn').addEventListener('click', updateData);
 }
 
 function closeSettings() {
@@ -1192,7 +1376,7 @@ function closeSettings() {
 }
 
 /* ============================================================
-   ۱) وضعیت‌ها
+   ۲) وضعیت‌ها
    ============================================================ */
 let DB = null;
 let currentSurahNum = null;
@@ -1201,8 +1385,12 @@ let activeTab = 'surahs';
 const STATE_KEY = 'manavi_state_v2';
 let saveTimer = null;
 
+/* نسخه دیتای فعلی کاربر (ممکنه با HTML متفاوت باشه اگر فقط دیتا آپدیت شده باشه) */
+let currentDataVersion =
+  localStorage.getItem('manavi_data_version') || DATA_VERSION;
+
 /* ============================================================
-   ۲) ابزارها
+   ۳) ابزارها
    ============================================================ */
 function escapeHtml(s) {
   return String(s ?? '').replace(/[&<>"']/g, c => ({
@@ -1238,7 +1426,7 @@ function shortTitle(t, maxWords = 5) {
 }
 
 /* ============================================================
-   ۳) به‌روزرسانی هدر
+   ۴) به‌روزرسانی هدر
    ============================================================ */
 function updateTopbar() {
   const el = document.getElementById('currentSurahLabel');
@@ -1270,7 +1458,7 @@ function updateTopbar() {
 }
 
 /* ============================================================
-   ۴) ذخیره/بازیابی state
+   ۵) ذخیره state
    ============================================================ */
 function saveState(immediate = false) {
   const state = {
@@ -1296,39 +1484,43 @@ function loadState() {
 }
 
 /* ============================================================
-   ۵) بارگذاری JSON
+   ۶) بارگذاری JSON
    ============================================================ */
-fetch('manavi_surahs.json')
-  .then(r => {
-    if (!r.ok) throw new Error(r.status + ' ' + r.statusText);
-    return r.json();
-  })
-  .then(json => {
-    DB = json;
-    renderSidebar(DB.surahs);
+function loadDataFromServer() {
+  return fetch('manavi_surahs.json')
+    .then(r => {
+      if (!r.ok) throw new Error(r.status + ' ' + r.statusText);
+      return r.json();
+    })
+    .then(json => {
+      DB = json;
+      renderSidebar(DB.surahs);
 
-    const st = loadState();
-    const startNum = (st && st.surah) || (DB.surahs[0] && DB.surahs[0].number);
-    const startIdx = st ? st.ayahIndex : -1;
-    const savedScroll = st ? st.scroll : 0;
-    const startTab = st && st.tab ? st.tab : 'surahs';
+      const st = loadState();
+      const startNum = (st && st.surah) || (DB.surahs[0] && DB.surahs[0].number);
+      const startIdx = st ? st.ayahIndex : -1;
+      const savedScroll = st ? st.scroll : 0;
+      const startTab = st && st.tab ? st.tab : 'surahs';
 
-    switchTab(startTab, false);
-    if (window.innerWidth > 820) openSidebar();
-    selectSurah(startNum, { openAyahIndex: startIdx, savedScroll });
-  })
-  .catch(err => {
-    const isOffline = !navigator.onLine;
-    document.getElementById('content').innerHTML =
-      `<div class="state error">
-         <p>${isOffline ? '📡 اتصال اینترنت قطع است' : 'خطا در بارگذاری <code>manavi_surahs.json</code>'}</p>
-         <p style="font-size:.85rem">${escapeHtml(err.message)}</p>
-         <p style="font-size:.85rem">اگر اولین بار است اجرا می‌کنید، یک سرور محلی راه‌اندازی کنید: <code>python -m http.server 8000</code></p>
-       </div>`;
-  });
+      switchTab(startTab, false);
+      if (window.innerWidth > 820) openSidebar();
+      selectSurah(startNum, { openAyahIndex: startIdx, savedScroll });
+    })
+    .catch(err => {
+      const isOffline = !navigator.onLine;
+      document.getElementById('content').innerHTML =
+        `<div class="state error">
+           <p>${isOffline ? '📡 اتصال اینترنت قطع است' : 'خطا در بارگذاری <code>manavi_surahs.json</code>'}</p>
+           <p style="font-size:.85rem">${escapeHtml(err.message)}</p>
+           <p style="font-size:.85rem">اگر اولین بار است اجرا می‌کنید، یک سرور محلی راه‌اندازی کنید: <code>python -m http.server 8000</code></p>
+         </div>`;
+    });
+}
+
+loadDataFromServer();
 
 /* ============================================================
-   ۶) سایدبار
+   ۷) سایدبار
    ============================================================ */
 const sidebarEl  = document.getElementById('sidebar');
 const contentEl  = document.getElementById('content');
@@ -1353,7 +1545,7 @@ document.getElementById('menuBtn').addEventListener('click', toggleSidebar);
 backdropEl.addEventListener('click', closeSidebar);
 
 /* ============================================================
-   ۷) تب‌ها
+   ۸) تب‌ها
    ============================================================ */
 function switchTab(name, save = true) {
   activeTab = name;
@@ -1370,7 +1562,7 @@ document.querySelectorAll('.sidebar-tab').forEach(btn => {
 });
 
 /* ============================================================
-   ۸) لیست سوره‌ها
+   ۹) لیست سوره‌ها
    ============================================================ */
 function renderSidebar(surahs, filter = '') {
   const listEl = document.getElementById('surahList');
@@ -1403,7 +1595,7 @@ function highlightActiveSurah() {
 }
 
 /* ============================================================
-   ۹) لیست آیات
+   ۱۰) لیست آیات
    ============================================================ */
 function renderAyahPanel(surah) {
   const listEl = document.getElementById('ayahList');
@@ -1453,7 +1645,7 @@ function highlightActiveChip() {
 }
 
 /* ============================================================
-   ۱۰) رندر سوره
+   ۱۱) رندر سوره
    ============================================================ */
 function selectSurah(num, opts = {}) {
   if (!DB) return;
@@ -1490,7 +1682,6 @@ function selectSurah(num, opts = {}) {
     head.addEventListener('click', () => toggleAyah(head.parentElement));
   });
 
-  // اگر از نتیجهٔ جستجو آمده‌ایم، لیست نتایج را حفظ کن
   if (opts.keepSearch && isSearchMode) {
     highlightActiveChip();
   } else {
@@ -1529,7 +1720,7 @@ function selectSurah(num, opts = {}) {
 }
 
 /* ============================================================
-   ۱۱) آکاردئون
+   ۱۲) آکاردئون
    ============================================================ */
 function closeAllAyahs() {
   document.querySelectorAll('.ayah.open').forEach(a => a.classList.remove('open'));
@@ -1542,7 +1733,6 @@ function openAyah(ayahEl, scroll = true) {
   highlightActiveChip();
   updateTopbar();
 
-  // هایلایت کلمات جستجو در متن آیه (در حالت جستجو)
   if (isSearchMode && lastSearchTokens.length) {
     highlightAyahInContent(ayahEl);
   }
@@ -1566,7 +1756,7 @@ function toggleAyah(ayahEl) {
 }
 
 /* ============================================================
-   ۱۲) جستجوی سوره‌ها
+   ۱۳) جستجوی سوره‌ها
    ============================================================ */
 document.getElementById('searchInput').addEventListener('input', e => {
   if (!DB) return;
@@ -1574,7 +1764,7 @@ document.getElementById('searchInput').addEventListener('input', e => {
 });
 
 /* ============================================================
-   ۱۳) موتور جستجوی آیات
+   ۱۴) موتور جستجوی آیات
    ============================================================ */
 const SEARCH_MIN_CHARS = 3;
 const SEARCH_DEBOUNCE  = 2200;
@@ -1584,17 +1774,10 @@ let searchDebounceTimer = null;
 let lastSearchQuery     = '';
 let lastSearchTokens    = [];
 
-/* ---------- توکنایزر ---------- */
 function tokenizeSearchQuery(query, spaceIsAnd) {
   const s = String(query || '').trim();
   const tokens = [];
 
-  // ----------------------------------------------------------
-  // حالت «عبارت دقیق»:
-  // وقتی چک‌باکس فاصله خاموش است، کل عبارت به‌عنوان یک term دقیق
-  // جستجو می‌شود؛ اپراتورها (& | - "") پردازش نمی‌شوند.
-  // اگر کل عبارت داخل "..." باشد، کوتیشن‌ها حذف می‌شوند.
-  // ----------------------------------------------------------
   if (!spaceIsAnd) {
     if (!s.length) return [];
     let v = s;
@@ -1605,13 +1788,11 @@ function tokenizeSearchQuery(query, spaceIsAnd) {
     return [{ type: 'term', value: v, negative: false, phrase: true }];
   }
 
-  // ------------------ حالت معمول (با اپراتورها) ------------------
   let i = 0;
   const lastToken = () => tokens[tokens.length - 1];
 
   while (i < s.length) {
     const c = s[i];
-
     if (/\s/.test(c)) { i++; continue; }
 
     if (c === '&') {
@@ -1632,11 +1813,8 @@ function tokenizeSearchQuery(query, spaceIsAnd) {
       continue;
     }
 
-    // عملگر ضمنی برای فاصله
     const prevTok = lastToken();
-    if (prevTok && prevTok.type === 'term') {
-      tokens.push({ type: 'and' });
-    }
+    if (prevTok && prevTok.type === 'term') tokens.push({ type: 'and' });
 
     let negative = false;
     if (c === '-' && i + 1 < s.length && !/[\s&|]/.test(s[i + 1])) {
@@ -1654,19 +1832,15 @@ function tokenizeSearchQuery(query, spaceIsAnd) {
       while (i < s.length && !/[\s&|]/.test(s[i])) { value += s[i]; i++; }
     }
 
-    if (value.length) {
-      tokens.push({ type: 'term', value, negative, phrase });
-    }
+    if (value.length) tokens.push({ type: 'term', value, negative, phrase });
   }
 
-  // پاک‌سازی عملگرهای ابتدایی/انتهایی
   while (tokens.length && tokens[0].type !== 'term') tokens.shift();
   while (tokens.length && tokens[tokens.length - 1].type !== 'term') tokens.pop();
 
   return tokens;
 }
 
-/* ---------- ارزیابی (NOT > AND > OR) ---------- */
 function evaluateTokensOnText(tokens, text) {
   if (!tokens.length) return false;
 
@@ -1678,7 +1852,6 @@ function evaluateTokensOnText(tokens, text) {
     return t.type;
   });
 
-  // AND
   const afterAnd = [];
   for (let i = 0; i < vals.length; i++) {
     if (vals[i] === 'and') {
@@ -1690,7 +1863,6 @@ function evaluateTokensOnText(tokens, text) {
     }
   }
 
-  // OR
   let result = afterAnd[0];
   for (let i = 1; i < afterAnd.length; i += 2) {
     if (afterAnd[i] === 'or') {
@@ -1700,20 +1872,17 @@ function evaluateTokensOnText(tokens, text) {
   return Boolean(result);
 }
 
-/* ---------- متن کامل بلاک ---------- */
 function blockFullText(a) {
   const parts = [a.title, a.clean_title, ...(a.content || [])];
   return parts.filter(Boolean).join(' ');
 }
 
-/* ---------- استخراج کلمات مثبت ---------- */
 function positiveTermsOf(tokens) {
   return tokens
     .filter(t => t.type === 'term' && !t.negative && t.value)
     .map(t => t.value);
 }
 
-/* ---------- Snippet ---------- */
 function makeSearchSnippet(a, tokens, maxLen = 180) {
   const text = (a.content || []).join(' ').replace(/\s+/g, ' ').trim();
   if (!text) return '';
@@ -1734,7 +1903,6 @@ function makeSearchSnippet(a, tokens, maxLen = 180) {
   return snip;
 }
 
-/* ---------- هایلایت یک رشته ---------- */
 function highlightSearchTerms(rawText, tokens) {
   const terms = positiveTermsOf(tokens);
   if (!terms.length) return escapeHtml(rawText);
@@ -1767,7 +1935,6 @@ function highlightSearchTerms(rawText, tokens) {
   return out;
 }
 
-/* ---------- هایلایت در متن باز شدهٔ آیه (DOM) ---------- */
 function clearHighlightsInContent(root) {
   root.querySelectorAll('mark[data-search-hl]').forEach(m => {
     const parent = m.parentNode;
@@ -1825,7 +1992,6 @@ function highlightAyahInContent(ayahEl) {
   }
 }
 
-/* ---------- اجرای جستجو ---------- */
 function performAyahSearch(query) {
   if (!DB) return;
   const tokens = tokenizeSearchQuery(query, settings.searchSpaceIsAnd);
@@ -1866,7 +2032,6 @@ function performAyahSearch(query) {
   renderSearchResults(results, total, tokens);
 }
 
-/* ---------- رندر نتایج ---------- */
 function renderSearchResults(results, total, tokens) {
   const listEl = document.getElementById('ayahList');
   const headEl = document.getElementById('ayahPanelHead');
@@ -1919,7 +2084,6 @@ function renderSearchResults(results, total, tokens) {
   highlightActiveChip();
 }
 
-/* ---------- خروج از حالت جستجو ---------- */
 function exitSearchMode() {
   isSearchMode = false;
   lastSearchQuery  = '';
@@ -1947,7 +2111,6 @@ function rerunSearchIfActive() {
   performAyahSearch(q);
 }
 
-/* ---------- اتصال رویدادهای نوار جستجو ---------- */
 function bindAyahSearch() {
   const input  = document.getElementById('searchAyahInput');
   const tabBtn = document.querySelector('.sidebar-tab[data-tab="ayahs"]');
@@ -1994,7 +2157,194 @@ function bindAyahSearch() {
 }
 
 /* ============================================================
-   ۱۴) ذخیره در اسکرول/خروج
+   ۱۵) سیستم بروزرسانی — چک، نمایش، اجرا
+   ============================================================ */
+function setStatus(msg, type = '') {
+  const el = document.getElementById('updateStatus');
+  if (!el) return;
+  el.textContent = msg || '';
+  el.className = 'update-status' + (type ? ' ' + type : '');
+}
+
+function setLocalVersion(which, value) {
+  const el = document.getElementById(which + 'VerLocal');
+  if (el) el.textContent = value;
+}
+
+function setRemoteVersion(which, value) {
+  const el   = document.getElementById(which + 'VerRemote');
+  const arr  = document.getElementById(which + 'VerArrow');
+  if (el) {
+    el.textContent = value;
+    el.classList.remove('hidden');
+  }
+  if (arr) arr.classList.remove('hidden');
+}
+
+function hideRemoteVersions() {
+  ['app', 'data'].forEach(which => {
+    const el  = document.getElementById(which + 'VerRemote');
+    const arr = document.getElementById(which + 'VerArrow');
+    if (el) { el.classList.add('hidden'); el.classList.remove('newer'); }
+    if (arr) arr.classList.add('hidden');
+  });
+  document.getElementById('updateAppBtn').classList.add('hidden');
+  document.getElementById('updateDataBtn').classList.add('hidden');
+}
+
+/* نمایش نسخه‌های فعلی هنگام باز شدن تب بروزرسانی */
+function refreshUpdateTab() {
+  setLocalVersion('app',  APP_VERSION);
+  setLocalVersion('data', currentDataVersion);
+  setStatus('');
+  hideRemoteVersions();
+}
+
+/* خواندن sw.js از سرور و استخراج نسخه‌ها */
+async function fetchServerVersions() {
+  try {
+    const res = await fetch('./sw.js?t=' + Date.now(), { cache: 'no-store' });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const text = await res.text();
+
+    const appMatch  = text.match(/APP_VERSION\s*=\s*['"]([^'"]+)['"]/);
+    const dataMatch = text.match(/DATA_VERSION\s*=\s*['"]([^'"]+)['"]/);
+
+    return {
+      app:  appMatch  ? appMatch[1]  : '?',
+      data: dataMatch ? dataMatch[1] : '?'
+    };
+  } catch {
+    return null;
+  }
+}
+
+async function checkForUpdates() {
+  const btn = document.getElementById('checkUpdateBtn');
+  btn.disabled = true;
+  setStatus('در حال بررسی…', 'loading');
+  hideRemoteVersions();
+
+  try {
+    const server = await fetchServerVersions();
+    if (!server) {
+      setStatus('⚠ بدون اتصال — بررسی بروزرسانی ممکن نشد', 'err');
+      return;
+    }
+
+    const appNeedsUpdate  = server.app  !== APP_VERSION;
+    const dataNeedsUpdate = server.data !== currentDataVersion;
+
+    setRemoteVersion('app',  server.app);
+    setRemoteVersion('data', server.data);
+
+    const appRemoteEl  = document.getElementById('appVerRemote');
+    const dataRemoteEl = document.getElementById('dataVerRemote');
+    if (appNeedsUpdate  && appRemoteEl)  appRemoteEl.classList.add('newer');
+    if (dataNeedsUpdate && dataRemoteEl) dataRemoteEl.classList.add('newer');
+
+    const appBtn  = document.getElementById('updateAppBtn');
+    const dataBtn = document.getElementById('updateDataBtn');
+    appBtn.classList.toggle('hidden',  !appNeedsUpdate);
+    dataBtn.classList.toggle('hidden', !dataNeedsUpdate);
+
+    if (!appNeedsUpdate && !dataNeedsUpdate) {
+      setStatus('✓ شما از آخرین نسخه استفاده می‌کنید', 'ok');
+    } else if (appNeedsUpdate && dataNeedsUpdate) {
+      setStatus('✨ نسخه جدید اپ و داده در دسترس است');
+    } else if (appNeedsUpdate) {
+      setStatus('✨ نسخه جدید اپلیکیشن در دسترس است');
+    } else {
+      setStatus('✨ داده‌های جدید در دسترس است');
+    }
+  } catch (err) {
+    setStatus('خطا: ' + err.message, 'err');
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+/* --- آپدیت اپلیکیشن: نصب sw.js جدید + reload --- */
+async function updateApp() {
+  const btn = document.getElementById('updateAppBtn');
+  btn.disabled = true;
+  setStatus('در حال دریافت نسخه جدید اپلیکیشن…', 'loading');
+
+  try {
+    const reg = await navigator.serviceWorker.getRegistration();
+    if (!reg) {
+      // بدون SW: فقط reload
+      window.location.reload();
+      return;
+    }
+
+    // شنونده برای controllerchange → reload
+    let reloaded = false;
+    const onControllerChange = () => {
+      if (reloaded) return;
+      reloaded = true;
+      window.location.reload();
+    };
+    navigator.serviceWorker.addEventListener('controllerchange', onControllerChange);
+
+    // چک فوری برای sw.js جدید
+    await reg.update();
+
+    // اگر تا ۱۰ ثانیه اتفاقی نیفتاد، رفرش اجباری
+    setTimeout(() => {
+      if (!reloaded) {
+        reloaded = true;
+        window.location.reload();
+      }
+    }, 10000);
+  } catch (err) {
+    setStatus('خطا: ' + err.message, 'err');
+    btn.disabled = false;
+  }
+}
+
+/* --- آپدیت داده: دوباره گرفتن JSON از شبکه --- */
+async function updateData() {
+  const btn = document.getElementById('updateDataBtn');
+  btn.disabled = true;
+  setStatus('در حال دریافت داده‌های جدید…', 'loading');
+
+  try {
+    // SW مخصوص: با refresh=1 از شبکه می‌گیرد و کش را به‌روز می‌کند
+    const res = await fetch('manavi_surahs.json?refresh=1', { cache: 'no-store' });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const json = await res.json();
+    DB = json;
+
+    // بروزرسانی نسخه داده‌ها از sw.js
+    const server = await fetchServerVersions();
+    if (server) {
+      currentDataVersion = server.data;
+      localStorage.setItem('manavi_data_version', currentDataVersion);
+      setLocalVersion('data', currentDataVersion);
+      setRemoteVersion('data', server.data);
+      document.getElementById('dataVerRemote').classList.remove('newer');
+    }
+
+    // رندر مجدد
+    renderSidebar(DB.surahs);
+    if (isSearchMode) {
+      rerunSearchIfActive();
+    } else {
+      selectSurah(currentSurahNum, { keepSearch: false });
+    }
+
+    setStatus('✓ داده‌ها با موفقیت بروزرسانی شد', 'ok');
+    document.getElementById('updateDataBtn').classList.add('hidden');
+  } catch (err) {
+    setStatus('خطا در بروزرسانی داده: ' + err.message, 'err');
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+/* ============================================================
+   ۱۶) ذخیره در اسکرول/خروج
    ============================================================ */
 let scrollTimer = null;
 window.addEventListener('scroll', () => {
@@ -2005,7 +2355,7 @@ window.addEventListener('scroll', () => {
 window.addEventListener('beforeunload', () => saveState(true));
 
 /* ============================================================
-   ۱۵) کلید Esc
+   ۱۷) کلید Esc
    ============================================================ */
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') {
@@ -2026,7 +2376,7 @@ document.addEventListener('keydown', e => {
 });
 
 /* ============================================================
-   ۱۶) راه‌اندازی
+   ۱۸) راه‌اندازی
    ============================================================ */
 loadSettings();
 applySettings();
@@ -2034,29 +2384,20 @@ initSettingsUI();
 bindAyahSearch();
 
 /* ============================================================
-   ۱۷) PWA — ثبت Service Worker
+   ۱۹) PWA — ثبت Service Worker + نوتیف خودکار بروزرسانی
    ============================================================ */
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('./sw.js', { scope: './' })
       .then(reg => {
         console.log('[PWA] Service Worker registered:', reg.scope);
-
-        reg.addEventListener('updatefound', () => {
-          const newWorker = reg.installing;
-          newWorker.addEventListener('statechange', () => {
-            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-              console.log('[PWA] نسخه جدید موجود است. رفرش کنید.');
-            }
-          });
-        });
       })
       .catch(err => console.warn('[PWA] SW registration failed:', err));
   });
 }
 
 /* ============================================================
-   ۱۸) PWA — دکمه نصب
+   ۲۰) PWA — دکمه نصب
    ============================================================ */
 let deferredPrompt = null;
 const installBtn = document.getElementById('installBtn');
@@ -2065,35 +2406,29 @@ window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   deferredPrompt = e;
   installBtn.classList.add('visible');
-  console.log('[PWA] آماده نصب');
 });
 
 installBtn.addEventListener('click', async () => {
   if (!deferredPrompt) return;
   deferredPrompt.prompt();
-  const { outcome } = await deferredPrompt.userChoice;
-  console.log('[PWA] نتیجه نصب:', outcome);
+  await deferredPrompt.userChoice;
   deferredPrompt = null;
   installBtn.classList.remove('visible');
 });
 
 window.addEventListener('appinstalled', () => {
-  console.log('[PWA] اپلیکیشن نصب شد');
   deferredPrompt = null;
   installBtn.classList.remove('visible');
 });
 
 /* ============================================================
-   ۱۹) PWA — نمایش وضعیت آفلاین
+   ۲۱) PWA — نمایش وضعیت آفلاین
    ============================================================ */
 const offlineBanner = document.getElementById('offlineBanner');
 
 function updateOnlineStatus() {
-  if (navigator.onLine) {
-    offlineBanner.classList.remove('visible');
-  } else {
-    offlineBanner.classList.add('visible');
-  }
+  if (navigator.onLine) offlineBanner.classList.remove('visible');
+  else offlineBanner.classList.add('visible');
 }
 
 window.addEventListener('online', updateOnlineStatus);
