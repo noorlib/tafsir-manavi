@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>تفسیر معنوی</title>
 
+<!-- ================== PWA ================== -->
 <link rel="manifest" href="./manifest.json">
 <meta name="theme-color" content="#0f1115">
 <meta name="description" content="تفسیر معنوی">
@@ -15,10 +16,12 @@
 <link rel="icon" type="image/png" sizes="64x64" href="icon/tm-64.png">
 <link rel="icon" type="image/png" sizes="128x128" href="icon/tm-128.png">
 <link rel="icon" type="image/png" sizes="256x256" href="icon/tm-256.png">
+<!-- ======================================== -->
 
 <link rel="stylesheet" href="./bootstrap.rtl.min.css">
 
 <script>
+/* اعمال سریع تنظیمات قبل از رندر */
 (function() {
   try {
     const s = JSON.parse(localStorage.getItem('manavi_settings_v1') || 'null');
@@ -53,6 +56,10 @@
   --reading-scale: 1;
   --overlay-bg: rgba(0,0,0,.6);
 }
+
+/* ============================================================
+   تم‌ها
+   ============================================================ */
 
 [data-theme="light"] {
   --bg: #f4f6fa; --bg-2: #ffffff; --bg-3: #eef1f6;
@@ -748,6 +755,57 @@ body {
 .settings-body select:focus,
 .settings-body input[type="number"]:focus { border-color: var(--accent); }
 
+/* --- حالت نمایش / فول اسکرین --- */
+.display-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  background: var(--bg-3);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: border-color .15s, background .15s;
+}
+.display-option:hover {
+  border-color: color-mix(in srgb, var(--accent) 50%, var(--border));
+}
+.display-option input[type="checkbox"] {
+  width: 18px; height: 18px;
+  accent-color: var(--accent);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.display-option .opt-label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+.display-option .opt-title {
+  font-size: .88rem;
+  color: var(--fg);
+  font-weight: 500;
+}
+.display-option .opt-sub {
+  font-size: .72rem;
+  color: var(--fg-muted);
+  line-height: 1.6;
+}
+
+.display-hint {
+  font-size: .75rem;
+  color: var(--fg-muted);
+  line-height: 1.75;
+  padding: 10px 12px;
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+  border-radius: 8px;
+  margin-top: 10px;
+  display: none;
+}
+.display-hint.visible { display: block; }
+
 /* --- تب بروزرسانی --- */
 .version-card {
   background: var(--bg-3);
@@ -1110,6 +1168,23 @@ mark[data-search-hl] {
           </div>
         </section>
 
+        <section class="settings-section">
+          <h3>🖥 حالت نمایش</h3>
+
+          <label class="display-option" for="setFullscreen">
+            <input type="checkbox" id="setFullscreen">
+            <div class="opt-label">
+              <span class="opt-title">فول اسکرین</span>
+              <span class="opt-sub">پنهان‌کردن نوار مرورگر و نوار وضعیت</span>
+            </div>
+          </label>
+
+          <div class="display-hint" id="fullscreenHint">
+            ✨ روی اپ نصب‌شده، حالت فول اسکرین به‌صورت خودکار فعال است. این گزینه برای زمانی است که از داخل مرورگر استفاده می‌کنید.
+          </div>
+
+        </section>
+
       </div>
 
       <!-- =============== تب جستجو =============== -->
@@ -1240,7 +1315,7 @@ const APP_VERSION  = '1.0.0';
 const DATA_VERSION = '1.0.0';
 
 /* ============================================================
-   ۱) تنظیمات (تم + فونت + جستجو)
+   ۱) تنظیمات (تم + فونت + جستجو + فول اسکرین)
    ============================================================ */
 const SETTINGS_KEY = 'manavi_settings_v1';
 const settings = {
@@ -1248,7 +1323,8 @@ const settings = {
   scale: 1,
   searchScope: 'all',
   searchLimit: 50,
-  searchSpaceIsAnd: true
+  searchSpaceIsAnd: true,
+  fullscreen: false
 };
 
 function loadSettings() {
@@ -1261,6 +1337,7 @@ function loadSettings() {
       if (typeof s.searchLimit === 'number' && s.searchLimit > 0) settings.searchLimit = s.searchLimit;
       if (typeof s.searchSpaceIsAnd === 'boolean') settings.searchSpaceIsAnd = s.searchSpaceIsAnd;
       else if (typeof s.searchSpaceIsOr === 'boolean') settings.searchSpaceIsAnd = !s.searchSpaceIsOr;
+      if (typeof s.fullscreen === 'boolean') settings.fullscreen = s.fullscreen;
     }
   } catch {}
 }
@@ -1296,14 +1373,62 @@ function applySettings() {
   if (scopeEl) scopeEl.value = settings.searchScope;
   if (limitEl) limitEl.value = settings.searchLimit;
   if (spaceEl) spaceEl.checked = settings.searchSpaceIsAnd;
+
+  // چک‌باکس فول اسکرین
+  const fsEl = document.getElementById('setFullscreen');
+  if (fsEl) fsEl.checked = !!settings.fullscreen;
 }
 
+/* ============================================================
+   فول اسکرین
+   ============================================================ */
+function isInstalledApp() {
+  return window.matchMedia('(display-mode: standalone)').matches
+      || window.matchMedia('(display-mode: fullscreen)').matches
+      || window.navigator.standalone === true;
+}
+
+function toggleFullscreen(on) {
+  try {
+    if (on) {
+      const el = document.documentElement;
+      if (el.requestFullscreen)             el.requestFullscreen().catch(() => {});
+      else if (el.webkitRequestFullscreen)  el.webkitRequestFullscreen();
+      else if (el.msRequestFullscreen)      el.msRequestFullscreen();
+    } else {
+      if (document.fullscreenElement) {
+        if (document.exitFullscreen)              document.exitFullscreen().catch(() => {});
+        else if (document.webkitExitFullscreen)   document.webkitExitFullscreen();
+        else if (document.msExitFullscreen)       document.msExitFullscreen();
+      }
+    }
+  } catch {}
+}
+
+/* همگام‌سازی چک‌باکس با تغییرات واقعی مرورگر (F11 یا Esc) */
+document.addEventListener('fullscreenchange', () => {
+  const isFs = !!document.fullscreenElement;
+  const fsEl = document.getElementById('setFullscreen');
+  if (fsEl) fsEl.checked = isFs;
+  settings.fullscreen = isFs;
+  saveSettings();
+});
+document.addEventListener('webkitfullscreenchange', () => {
+  const isFs = !!(document.webkitFullscreenElement || document.fullscreenElement);
+  const fsEl = document.getElementById('setFullscreen');
+  if (fsEl) fsEl.checked = isFs;
+  settings.fullscreen = isFs;
+  saveSettings();
+});
+
+/* ============================================================
+   ۲) اتصال رویدادهای تنظیمات
+   ============================================================ */
 function initSettingsUI() {
   const overlay = document.getElementById('settingsOverlay');
 
   document.getElementById('settingsBtn').addEventListener('click', () => {
     overlay.classList.add('visible');
-    // بروزرسانی نمایش نسخه‌ها هنگام باز شدن
     refreshUpdateTab();
   });
   document.getElementById('settingsClose').addEventListener('click', closeSettings);
@@ -1365,6 +1490,14 @@ function initSettingsUI() {
     rerunSearchIfActive();
   });
 
+  // فول اسکرین
+  const fsEl = document.getElementById('setFullscreen');
+  fsEl && fsEl.addEventListener('change', (e) => {
+    settings.fullscreen = e.target.checked;
+    saveSettings();
+    toggleFullscreen(settings.fullscreen);
+  });
+
   // بروزرسانی
   document.getElementById('checkUpdateBtn').addEventListener('click', checkForUpdates);
   document.getElementById('updateAppBtn').addEventListener('click', updateApp);
@@ -1376,7 +1509,7 @@ function closeSettings() {
 }
 
 /* ============================================================
-   ۲) وضعیت‌ها
+   ۳) وضعیت‌ها
    ============================================================ */
 let DB = null;
 let currentSurahNum = null;
@@ -1385,12 +1518,11 @@ let activeTab = 'surahs';
 const STATE_KEY = 'manavi_state_v2';
 let saveTimer = null;
 
-/* نسخه دیتای فعلی کاربر (ممکنه با HTML متفاوت باشه اگر فقط دیتا آپدیت شده باشه) */
 let currentDataVersion =
   localStorage.getItem('manavi_data_version') || DATA_VERSION;
 
 /* ============================================================
-   ۳) ابزارها
+   ۴) ابزارها
    ============================================================ */
 function escapeHtml(s) {
   return String(s ?? '').replace(/[&<>"']/g, c => ({
@@ -1426,7 +1558,7 @@ function shortTitle(t, maxWords = 5) {
 }
 
 /* ============================================================
-   ۴) به‌روزرسانی هدر
+   ۵) به‌روزرسانی هدر
    ============================================================ */
 function updateTopbar() {
   const el = document.getElementById('currentSurahLabel');
@@ -1458,7 +1590,7 @@ function updateTopbar() {
 }
 
 /* ============================================================
-   ۵) ذخیره state
+   ۶) ذخیره state
    ============================================================ */
 function saveState(immediate = false) {
   const state = {
@@ -1484,7 +1616,7 @@ function loadState() {
 }
 
 /* ============================================================
-   ۶) بارگذاری JSON
+   ۷) بارگذاری JSON
    ============================================================ */
 function loadDataFromServer() {
   return fetch('manavi_surahs.json')
@@ -1520,7 +1652,7 @@ function loadDataFromServer() {
 loadDataFromServer();
 
 /* ============================================================
-   ۷) سایدبار
+   ۸) سایدبار
    ============================================================ */
 const sidebarEl  = document.getElementById('sidebar');
 const contentEl  = document.getElementById('content');
@@ -1545,7 +1677,7 @@ document.getElementById('menuBtn').addEventListener('click', toggleSidebar);
 backdropEl.addEventListener('click', closeSidebar);
 
 /* ============================================================
-   ۸) تب‌ها
+   ۹) تب‌ها
    ============================================================ */
 function switchTab(name, save = true) {
   activeTab = name;
@@ -1562,7 +1694,7 @@ document.querySelectorAll('.sidebar-tab').forEach(btn => {
 });
 
 /* ============================================================
-   ۹) لیست سوره‌ها
+   ۱۰) لیست سوره‌ها
    ============================================================ */
 function renderSidebar(surahs, filter = '') {
   const listEl = document.getElementById('surahList');
@@ -1595,7 +1727,7 @@ function highlightActiveSurah() {
 }
 
 /* ============================================================
-   ۱۰) لیست آیات
+   ۱۱) لیست آیات
    ============================================================ */
 function renderAyahPanel(surah) {
   const listEl = document.getElementById('ayahList');
@@ -1645,7 +1777,7 @@ function highlightActiveChip() {
 }
 
 /* ============================================================
-   ۱۱) رندر سوره
+   ۱۲) رندر سوره
    ============================================================ */
 function selectSurah(num, opts = {}) {
   if (!DB) return;
@@ -1720,7 +1852,7 @@ function selectSurah(num, opts = {}) {
 }
 
 /* ============================================================
-   ۱۲) آکاردئون
+   ۱۳) آکاردئون
    ============================================================ */
 function closeAllAyahs() {
   document.querySelectorAll('.ayah.open').forEach(a => a.classList.remove('open'));
@@ -1756,7 +1888,7 @@ function toggleAyah(ayahEl) {
 }
 
 /* ============================================================
-   ۱۳) جستجوی سوره‌ها
+   ۱۴) جستجوی سوره‌ها
    ============================================================ */
 document.getElementById('searchInput').addEventListener('input', e => {
   if (!DB) return;
@@ -1764,7 +1896,7 @@ document.getElementById('searchInput').addEventListener('input', e => {
 });
 
 /* ============================================================
-   ۱۴) موتور جستجوی آیات
+   ۱۵) موتور جستجوی آیات
    ============================================================ */
 const SEARCH_MIN_CHARS = 3;
 const SEARCH_DEBOUNCE  = 2200;
@@ -2157,7 +2289,7 @@ function bindAyahSearch() {
 }
 
 /* ============================================================
-   ۱۵) سیستم بروزرسانی — چک، نمایش، اجرا
+   ۱۶) سیستم بروزرسانی
    ============================================================ */
 function setStatus(msg, type = '') {
   const el = document.getElementById('updateStatus');
@@ -2192,7 +2324,6 @@ function hideRemoteVersions() {
   document.getElementById('updateDataBtn').classList.add('hidden');
 }
 
-/* نمایش نسخه‌های فعلی هنگام باز شدن تب بروزرسانی */
 function refreshUpdateTab() {
   setLocalVersion('app',  APP_VERSION);
   setLocalVersion('data', currentDataVersion);
@@ -2200,7 +2331,6 @@ function refreshUpdateTab() {
   hideRemoteVersions();
 }
 
-/* خواندن sw.js از سرور و استخراج نسخه‌ها */
 async function fetchServerVersions() {
   try {
     const res = await fetch('./sw.js?t=' + Date.now(), { cache: 'no-store' });
@@ -2264,7 +2394,6 @@ async function checkForUpdates() {
   }
 }
 
-/* --- آپدیت اپلیکیشن: نصب sw.js جدید + reload --- */
 async function updateApp() {
   const btn = document.getElementById('updateAppBtn');
   btn.disabled = true;
@@ -2273,12 +2402,10 @@ async function updateApp() {
   try {
     const reg = await navigator.serviceWorker.getRegistration();
     if (!reg) {
-      // بدون SW: فقط reload
       window.location.reload();
       return;
     }
 
-    // شنونده برای controllerchange → reload
     let reloaded = false;
     const onControllerChange = () => {
       if (reloaded) return;
@@ -2287,10 +2414,8 @@ async function updateApp() {
     };
     navigator.serviceWorker.addEventListener('controllerchange', onControllerChange);
 
-    // چک فوری برای sw.js جدید
     await reg.update();
 
-    // اگر تا ۱۰ ثانیه اتفاقی نیفتاد، رفرش اجباری
     setTimeout(() => {
       if (!reloaded) {
         reloaded = true;
@@ -2303,20 +2428,17 @@ async function updateApp() {
   }
 }
 
-/* --- آپدیت داده: دوباره گرفتن JSON از شبکه --- */
 async function updateData() {
   const btn = document.getElementById('updateDataBtn');
   btn.disabled = true;
   setStatus('در حال دریافت داده‌های جدید…', 'loading');
 
   try {
-    // SW مخصوص: با refresh=1 از شبکه می‌گیرد و کش را به‌روز می‌کند
     const res = await fetch('manavi_surahs.json?refresh=1', { cache: 'no-store' });
     if (!res.ok) throw new Error('HTTP ' + res.status);
     const json = await res.json();
     DB = json;
 
-    // بروزرسانی نسخه داده‌ها از sw.js
     const server = await fetchServerVersions();
     if (server) {
       currentDataVersion = server.data;
@@ -2326,7 +2448,6 @@ async function updateData() {
       document.getElementById('dataVerRemote').classList.remove('newer');
     }
 
-    // رندر مجدد
     renderSidebar(DB.surahs);
     if (isSearchMode) {
       rerunSearchIfActive();
@@ -2344,7 +2465,7 @@ async function updateData() {
 }
 
 /* ============================================================
-   ۱۶) ذخیره در اسکرول/خروج
+   ۱۷) ذخیره در اسکرول/خروج
    ============================================================ */
 let scrollTimer = null;
 window.addEventListener('scroll', () => {
@@ -2355,7 +2476,7 @@ window.addEventListener('scroll', () => {
 window.addEventListener('beforeunload', () => saveState(true));
 
 /* ============================================================
-   ۱۷) کلید Esc
+   ۱۸) کلید Esc
    ============================================================ */
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') {
@@ -2376,15 +2497,29 @@ document.addEventListener('keydown', e => {
 });
 
 /* ============================================================
-   ۱۸) راه‌اندازی
+   ۱۹) راه‌اندازی
    ============================================================ */
 loadSettings();
 applySettings();
 initSettingsUI();
 bindAyahSearch();
 
+// نمایش راهنما بر اساس حالت اجرا
+const fsHintEl = document.getElementById('fullscreenHint');
+if (fsHintEl && isInstalledApp()) fsHintEl.classList.add('visible');
+
+// اگر در حالت مرورگر بود و کاربر قبلاً فول‌اسکرین رو فعال کرده بود،
+// با اولین کلیک کاربر فعالش کن (محدودیت امنیتی مرورگر)
+if (!isInstalledApp() && settings.fullscreen) {
+  const onceHandler = () => {
+    document.removeEventListener('click', onceHandler);
+    toggleFullscreen(true);
+  };
+  document.addEventListener('click', onceHandler, { once: true });
+}
+
 /* ============================================================
-   ۱۹) PWA — ثبت Service Worker + نوتیف خودکار بروزرسانی
+   ۲۰) PWA — ثبت Service Worker
    ============================================================ */
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
@@ -2397,7 +2532,7 @@ if ('serviceWorker' in navigator) {
 }
 
 /* ============================================================
-   ۲۰) PWA — دکمه نصب
+   ۲۱) PWA — دکمه نصب
    ============================================================ */
 let deferredPrompt = null;
 const installBtn = document.getElementById('installBtn');
@@ -2422,7 +2557,7 @@ window.addEventListener('appinstalled', () => {
 });
 
 /* ============================================================
-   ۲۱) PWA — نمایش وضعیت آفلاین
+   ۲۲) PWA — نمایش وضعیت آفلاین
    ============================================================ */
 const offlineBanner = document.getElementById('offlineBanner');
 
