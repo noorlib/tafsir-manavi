@@ -1233,6 +1233,9 @@ mark[data-search-hl] {
             <button class="update-btn data hidden" id="updateDataBtn">
               ⬇ بروزرسانی داده‌ها
             </button>
+            <button class="update-btn" id="forceDataBtn" style="margin-top:6px; font-size:.8rem; opacity:.85;">
+              ♻️ بروزرسانی اجباری داده‌ها
+            </button>
           </div>
 
           <div class="update-status" id="updateStatus"></div>
@@ -1285,10 +1288,9 @@ mark[data-search-hl] {
 
 <script>
 /* ============================================================
-   ۰) نسخه‌ها (باید با sw.js همگام باشد)
+   ۰) نسخه اپ (باید با sw.js همگام باشد)
    ============================================================ */
-const APP_VERSION  = '1.0.1';
-const DATA_VERSION = '1.0.0';
+const APP_VERSION = '1.0.1';
 
 /* ============================================================
    ۱) تنظیمات
@@ -1470,6 +1472,7 @@ function initSettingsUI() {
   document.getElementById('checkUpdateBtn').addEventListener('click', checkForUpdates);
   document.getElementById('updateAppBtn').addEventListener('click', updateApp);
   document.getElementById('updateDataBtn').addEventListener('click', updateData);
+  document.getElementById('forceDataBtn').addEventListener('click', forceUpdateData);
 }
 
 function closeSettings() {
@@ -1486,11 +1489,10 @@ let activeTab = 'surahs';
 const STATE_KEY = 'manavi_state_v2';
 let saveTimer = null;
 
-let currentDataVersion =
-  localStorage.getItem('manavi_data_version') || DATA_VERSION;
+let currentDataVersion = localStorage.getItem('manavi_data_version') || '';
 
 /* ============================================================
-   ۴) ابزارها و accessorها
+   ۴) ابزارها
    ============================================================ */
 function escapeHtml(s) {
   return String(s ?? '').replace(/[&<>"']/g, c => ({
@@ -1498,25 +1500,20 @@ function escapeHtml(s) {
   }[c]));
 }
 
-function itemMeta(it) {
-  return (it && it.meta) || {};
-}
+function itemMeta(it) { return (it && it.meta) || {}; }
 
 function itemAyahNumbers(it) {
   const m = itemMeta(it);
   return Array.isArray(m.ayahNumbers) ? m.ayahNumbers : null;
 }
-
 function itemAyahFrom(it) {
   const v = itemMeta(it).ayahFrom;
   return (typeof v === 'number') ? v : null;
 }
-
 function itemAyahTo(it) {
   const v = itemMeta(it).ayahTo;
   return (typeof v === 'number') ? v : null;
 }
-
 function itemContent(it) {
   if (!it) return [];
   const c = it.content;
@@ -1524,17 +1521,14 @@ function itemContent(it) {
   if (typeof c === 'string') return [c];
   return [];
 }
-
 function itemFullTitle(it) {
   return (it && it.title ? String(it.title) : '').trim();
 }
-
 function itemShortTitleRaw(it) {
   const st = (it && it.shortTitle ? String(it.shortTitle) : '').trim();
   if (st) return st;
   return itemFullTitle(it);
 }
-
 function ayahRangeLabel(it) {
   const nums = itemAyahNumbers(it);
   if (nums && nums.length) {
@@ -1552,7 +1546,6 @@ function ayahRangeLabel(it) {
   if (from != null) return String(from);
   return '؟';
 }
-
 function firstAyahNumber(it) {
   const nums = itemAyahNumbers(it);
   if (nums && nums.length) return nums[0];
@@ -1560,32 +1553,6 @@ function firstAyahNumber(it) {
   if (from != null) return from;
   return '؟';
 }
-
-/* عنوان کوتاه با fallback برای آیتم‌های بدون عنوان (مثل ۴ مورد فصل ۲۵) */
-function itemShortTitle(it, maxWords = 5) {
-  const t = itemShortTitleRaw(it);
-  if (t) return shortTitle(t, maxWords);
-  const num = firstAyahNumber(it);
-  if (num !== '؟') return `آیه ${num}`;
-  return '—';
-}
-
-function itemDisplayTitle(it) {
-  const t = itemFullTitle(it);
-  if (t) return t;
-  const num = firstAyahNumber(it);
-  if (num !== '؟') return `آیه ${num}`;
-  return '—';
-}
-
-function preview(content, maxWords = 25) {
-  const text = (content || []).join(' ').replace(/\s+/g, ' ').trim();
-  if (!text) return '';
-  const words = text.split(' ');
-  if (words.length <= maxWords) return text;
-  return words.slice(0, maxWords).join(' ') + ' …';
-}
-
 function shortTitle(t, maxWords = 5) {
   const text = String(t || '').trim();
   if (!text) return '';
@@ -1593,18 +1560,37 @@ function shortTitle(t, maxWords = 5) {
   if (words.length <= maxWords) return text;
   return words.slice(0, maxWords).join(' ') + '…';
 }
-
+function itemShortTitle(it, maxWords = 5) {
+  const t = itemShortTitleRaw(it);
+  if (t) return shortTitle(t, maxWords);
+  const num = firstAyahNumber(it);
+  if (num !== '؟') return `آیه ${num}`;
+  return '—';
+}
+function itemDisplayTitle(it) {
+  const t = itemFullTitle(it);
+  if (t) return t;
+  const num = firstAyahNumber(it);
+  if (num !== '؟') return `آیه ${num}`;
+  return '—';
+}
+function preview(content, maxWords = 25) {
+  const text = (content || []).join(' ').replace(/\s+/g, ' ').trim();
+  if (!text) return '';
+  const words = text.split(' ');
+  if (words.length <= maxWords) return text;
+  return words.slice(0, maxWords).join(' ') + ' …';
+}
 function getChapterById(id) {
   if (!DB || !Array.isArray(DB.chapters)) return null;
   return DB.chapters.find(c => c.id === id) || null;
 }
-
 function getChapterItems(ch) {
   return (ch && Array.isArray(ch.items)) ? ch.items : [];
 }
 
 /* ============================================================
-   ۵) به‌روزرسانی هدر
+   ۵) هدر
    ============================================================ */
 function updateTopbar() {
   const el = document.getElementById('currentSurahLabel');
@@ -1674,9 +1660,8 @@ function loadDataFromServer() {
     .then(json => {
       DB = json;
 
-      // همگام‌سازی نسخه دیتا از meta فایل
       if (json.meta && json.meta.version) {
-        currentDataVersion = json.meta.version;
+        currentDataVersion = String(json.meta.version);
         localStorage.setItem('manavi_data_version', currentDataVersion);
       }
 
@@ -1748,7 +1733,7 @@ document.querySelectorAll('.sidebar-tab').forEach(btn => {
 });
 
 /* ============================================================
-   ۱۰) لیست فصل‌ها (سوره‌ها)
+   ۱۰) لیست فصل‌ها
    ============================================================ */
 function renderSidebar(chapters, filter = '') {
   const listEl = document.getElementById('surahList');
@@ -2363,14 +2348,14 @@ function setStatus(msg, type = '') {
 
 function setLocalVersion(which, value) {
   const el = document.getElementById(which + 'VerLocal');
-  if (el) el.textContent = value;
+  if (el) el.textContent = value || '—';
 }
 
 function setRemoteVersion(which, value) {
   const el   = document.getElementById(which + 'VerRemote');
   const arr  = document.getElementById(which + 'VerArrow');
   if (el) {
-    el.textContent = value;
+    el.textContent = value || '—';
     el.classList.remove('hidden');
   }
   if (arr) arr.classList.remove('hidden');
@@ -2389,24 +2374,31 @@ function hideRemoteVersions() {
 
 function refreshUpdateTab() {
   setLocalVersion('app',  APP_VERSION);
-  setLocalVersion('data', currentDataVersion);
+  setLocalVersion('data', currentDataVersion || '—');
   setStatus('');
   hideRemoteVersions();
 }
 
-async function fetchServerVersions() {
+/* خواندن APP_VERSION از sw.js سرور */
+async function fetchRemoteAppVersion() {
   try {
     const res = await fetch('./sw.js?t=' + Date.now(), { cache: 'no-store' });
-    if (!res.ok) throw new Error('HTTP ' + res.status);
+    if (!res.ok) return null;
     const text = await res.text();
+    const m = text.match(/APP_VERSION\s*=\s*['"]([^'"]+)['"]/);
+    return m ? m[1] : null;
+  } catch {
+    return null;
+  }
+}
 
-    const appMatch  = text.match(/APP_VERSION\s*=\s*['"]([^'"]+)['"]/);
-    const dataMatch = text.match(/DATA_VERSION\s*=\s*['"]([^'"]+)['"]/);
-
-    return {
-      app:  appMatch  ? appMatch[1]  : '?',
-      data: dataMatch ? dataMatch[1] : '?'
-    };
+/* خواندن meta.version از JSON سرور (بدون دست زدن به کش) */
+async function fetchRemoteDataVersion() {
+  try {
+    const res = await fetch('manavi_surahs.json?check=1&t=' + Date.now(), { cache: 'no-store' });
+    if (!res.ok) return null;
+    const json = await res.json();
+    return (json.meta && json.meta.version) ? String(json.meta.version) : null;
   } catch {
     return null;
   }
@@ -2419,17 +2411,21 @@ async function checkForUpdates() {
   hideRemoteVersions();
 
   try {
-    const server = await fetchServerVersions();
-    if (!server) {
+    const [remoteApp, remoteData] = await Promise.all([
+      fetchRemoteAppVersion(),
+      fetchRemoteDataVersion()
+    ]);
+
+    if (remoteApp === null && remoteData === null) {
       setStatus('⚠ بدون اتصال — بررسی بروزرسانی ممکن نشد', 'err');
       return;
     }
 
-    const appNeedsUpdate  = server.app  !== APP_VERSION;
-    const dataNeedsUpdate = server.data !== currentDataVersion;
+    const appNeedsUpdate  = remoteApp  !== null && remoteApp  !== APP_VERSION;
+    const dataNeedsUpdate = remoteData !== null && remoteData !== (currentDataVersion || '');
 
-    setRemoteVersion('app',  server.app);
-    setRemoteVersion('data', server.data);
+    if (remoteApp !== null)  setRemoteVersion('app',  remoteApp);
+    if (remoteData !== null) setRemoteVersion('data', remoteData);
 
     const appRemoteEl  = document.getElementById('appVerRemote');
     const dataRemoteEl = document.getElementById('dataVerRemote');
@@ -2502,25 +2498,18 @@ async function updateData() {
     const json = await res.json();
     DB = json;
 
-    // نسخه از خود فایل JSON
-    if (json.meta && json.meta.version) {
-      currentDataVersion = json.meta.version;
-      localStorage.setItem('manavi_data_version', currentDataVersion);
-    } else {
-      // fallback: از sw.js
-      const server = await fetchServerVersions();
-      if (server) {
-        currentDataVersion = server.data;
-        localStorage.setItem('manavi_data_version', currentDataVersion);
-      }
+    const newVer = (json.meta && json.meta.version) ? String(json.meta.version) : null;
+    if (newVer) {
+      currentDataVersion = newVer;
+      localStorage.setItem('manavi_data_version', newVer);
     }
 
-    setLocalVersion('data', currentDataVersion);
-    const server = await fetchServerVersions();
-    if (server) {
-      setRemoteVersion('data', server.data);
-      document.getElementById('dataVerRemote').classList.remove('newer');
-    }
+    setLocalVersion('data', currentDataVersion || '—');
+
+    const dataRemoteEl = document.getElementById('dataVerRemote');
+    const dataArrowEl  = document.getElementById('dataVerArrow');
+    if (dataRemoteEl) { dataRemoteEl.classList.add('hidden'); dataRemoteEl.classList.remove('newer'); }
+    if (dataArrowEl)  dataArrowEl.classList.add('hidden');
 
     renderSidebar(DB.chapters);
     if (isSearchMode) {
@@ -2533,6 +2522,47 @@ async function updateData() {
     document.getElementById('updateDataBtn').classList.add('hidden');
   } catch (err) {
     setStatus('خطا در بروزرسانی داده: ' + err.message, 'err');
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+/* ---- بروزرسانی اجباری داده (بدون چک نسخه) ---- */
+async function forceUpdateData() {
+  const btn = document.getElementById('forceDataBtn');
+  btn.disabled = true;
+  setStatus('در حال بروزرسانی اجباری داده‌ها…', 'loading');
+
+  try {
+    // اول کش دیتا رو پاک کن
+    if ('caches' in window) {
+      await caches.delete('tafsir-manavi-data');
+    }
+
+    const res = await fetch('manavi_surahs.json?refresh=1', { cache: 'no-store' });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const json = await res.json();
+    DB = json;
+
+    const newVer = (json.meta && json.meta.version) ? String(json.meta.version) : null;
+    if (newVer) {
+      currentDataVersion = newVer;
+      localStorage.setItem('manavi_data_version', newVer);
+    }
+
+    setLocalVersion('data', currentDataVersion || '—');
+    hideRemoteVersions();
+
+    renderSidebar(DB.chapters);
+    if (isSearchMode) {
+      rerunSearchIfActive();
+    } else {
+      selectChapter(currentChapterId, { keepSearch: false });
+    }
+
+    setStatus('✓ داده‌ها به‌صورت اجباری بروزرسانی شد', 'ok');
+  } catch (err) {
+    setStatus('خطا در بروزرسانی اجباری: ' + err.message, 'err');
   } finally {
     btn.disabled = false;
   }
