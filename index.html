@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>تفسیر معنوی</title>
 
-<!-- ================== PWA ================== -->
 <link rel="manifest" href="./manifest.json">
 <meta name="theme-color" content="#0f1115">
 <meta name="description" content="تفسیر معنوی">
@@ -16,12 +15,10 @@
 <link rel="icon" type="image/png" sizes="64x64" href="icon/tm-64.png">
 <link rel="icon" type="image/png" sizes="128x128" href="icon/tm-128.png">
 <link rel="icon" type="image/png" sizes="256x256" href="icon/tm-256.png">
-<!-- ======================================== -->
 
 <link rel="stylesheet" href="./bootstrap.rtl.min.css">
 
 <script>
-/* اعمال سریع تنظیمات قبل از رندر */
 (function() {
   try {
     const s = JSON.parse(localStorage.getItem('manavi_settings_v1') || 'null');
@@ -56,10 +53,6 @@
   --reading-scale: 1;
   --overlay-bg: rgba(0,0,0,.6);
 }
-
-/* ============================================================
-   تم‌ها
-   ============================================================ */
 
 [data-theme="light"] {
   --bg: #f4f6fa; --bg-2: #ffffff; --bg-3: #eef1f6;
@@ -469,9 +462,6 @@ body {
 }
 .backdrop.visible { opacity: 1; pointer-events: auto; }
 
-/* ============================================================
-   پنل تنظیمات
-   ============================================================ */
 .settings-overlay {
   position: fixed;
   inset: 0;
@@ -550,7 +540,6 @@ body {
   border-color: var(--accent);
 }
 
-/* --- تب‌های تنظیمات --- */
 .settings-tabs {
   display: flex;
   border-bottom: 1px solid var(--border);
@@ -606,7 +595,6 @@ body {
   background: var(--border);
 }
 
-/* --- کارت‌های تم --- */
 .theme-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
@@ -694,7 +682,6 @@ body {
 }
 .theme-card.active .theme-check { display: flex; }
 
-/* --- اندازه فونت --- */
 .font-row {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -740,7 +727,6 @@ body {
 }
 .font-btn.active .lbl { color: var(--fg); }
 
-/* --- تنظیمات جستجو --- */
 .settings-body select,
 .settings-body input[type="number"] {
   background: var(--bg-3);
@@ -755,7 +741,6 @@ body {
 .settings-body select:focus,
 .settings-body input[type="number"]:focus { border-color: var(--accent); }
 
-/* --- حالت نمایش / فول اسکرین --- */
 .display-option {
   display: flex;
   align-items: center;
@@ -806,7 +791,6 @@ body {
 }
 .display-hint.visible { display: block; }
 
-/* --- تب بروزرسانی --- */
 .version-card {
   background: var(--bg-3);
   border: 1px solid var(--border);
@@ -929,7 +913,6 @@ body {
 .update-status.err { color: #ef4444; }
 .update-status.loading { color: var(--accent); }
 
-/* --- واکنش‌گرا --- */
 @media (max-width: 820px) {
   .content { margin-right: 0; padding: 14px 14px 100px; }
   .sidebar {
@@ -980,9 +963,6 @@ body {
   box-shadow: 0 0 8px #ef4444;
 }
 
-/* ============================================================
-   جستجوی آیات
-   ============================================================ */
 .ayah-list li a.search-result-item {
   flex-direction: column;
   align-items: stretch;
@@ -1084,7 +1064,6 @@ mark[data-search-hl] {
       </button>
     </div>
 
-    <!-- تب‌های تنظیمات -->
     <div class="settings-tabs">
       <button class="settings-tab active" data-stab="appearance">🎨 ظاهر</button>
       <button class="settings-tab" data-stab="search">🔍 جستجو</button>
@@ -1093,7 +1072,6 @@ mark[data-search-hl] {
 
     <div class="settings-body">
 
-      <!-- =============== تب ظاهر =============== -->
       <div class="settings-tabpanel" id="stab-appearance">
 
         <section class="settings-section">
@@ -1187,7 +1165,6 @@ mark[data-search-hl] {
 
       </div>
 
-      <!-- =============== تب جستجو =============== -->
       <div class="settings-tabpanel hidden" id="stab-search">
         <section class="settings-section">
           <h3>🔍 تنظیمات جستجو</h3>
@@ -1216,7 +1193,6 @@ mark[data-search-hl] {
         </section>
       </div>
 
-      <!-- =============== تب بروزرسانی =============== -->
       <div class="settings-tabpanel hidden" id="stab-update">
         <section class="settings-section">
           <h3>🔄 بروزرسانی</h3>
@@ -1311,11 +1287,11 @@ mark[data-search-hl] {
 /* ============================================================
    ۰) نسخه‌ها (باید با sw.js همگام باشد)
    ============================================================ */
-const APP_VERSION  = '1.0.0';
+const APP_VERSION  = '1.0.1';
 const DATA_VERSION = '1.0.0';
 
 /* ============================================================
-   ۱) تنظیمات (تم + فونت + جستجو + فول اسکرین)
+   ۱) تنظیمات
    ============================================================ */
 const SETTINGS_KEY = 'manavi_settings_v1';
 const settings = {
@@ -1374,7 +1350,6 @@ function applySettings() {
   if (limitEl) limitEl.value = settings.searchLimit;
   if (spaceEl) spaceEl.checked = settings.searchSpaceIsAnd;
 
-  // چک‌باکس فول اسکرین
   const fsEl = document.getElementById('setFullscreen');
   if (fsEl) fsEl.checked = !!settings.fullscreen;
 }
@@ -1405,7 +1380,6 @@ function toggleFullscreen(on) {
   } catch {}
 }
 
-/* همگام‌سازی چک‌باکس با تغییرات واقعی مرورگر (F11 یا Esc) */
 document.addEventListener('fullscreenchange', () => {
   const isFs = !!document.fullscreenElement;
   const fsEl = document.getElementById('setFullscreen');
@@ -1422,7 +1396,7 @@ document.addEventListener('webkitfullscreenchange', () => {
 });
 
 /* ============================================================
-   ۲) اتصال رویدادهای تنظیمات
+   ۲) رویدادهای تنظیمات
    ============================================================ */
 function initSettingsUI() {
   const overlay = document.getElementById('settingsOverlay');
@@ -1436,7 +1410,6 @@ function initSettingsUI() {
     if (e.target === overlay) closeSettings();
   });
 
-  // تب‌های داخلی تنظیمات
   document.querySelectorAll('.settings-tab').forEach(tab => {
     tab.addEventListener('click', () => {
       document.querySelectorAll('.settings-tab').forEach(t => {
@@ -1449,7 +1422,6 @@ function initSettingsUI() {
     });
   });
 
-  // کارت‌های تم
   document.querySelectorAll('#themeGrid .theme-card').forEach(card => {
     card.addEventListener('click', () => {
       settings.theme = card.dataset.theme;
@@ -1458,7 +1430,6 @@ function initSettingsUI() {
     });
   });
 
-  // اندازه فونت
   document.querySelectorAll('#fontRow .font-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       settings.scale = Number(btn.dataset.scale);
@@ -1467,7 +1438,6 @@ function initSettingsUI() {
     });
   });
 
-  // تنظیمات جستجو
   const scopeEl = document.getElementById('setSearchScope');
   const limitEl = document.getElementById('setSearchLimit');
   const spaceEl = document.getElementById('setSearchSpace');
@@ -1490,7 +1460,6 @@ function initSettingsUI() {
     rerunSearchIfActive();
   });
 
-  // فول اسکرین
   const fsEl = document.getElementById('setFullscreen');
   fsEl && fsEl.addEventListener('change', (e) => {
     settings.fullscreen = e.target.checked;
@@ -1498,7 +1467,6 @@ function initSettingsUI() {
     toggleFullscreen(settings.fullscreen);
   });
 
-  // بروزرسانی
   document.getElementById('checkUpdateBtn').addEventListener('click', checkForUpdates);
   document.getElementById('updateAppBtn').addEventListener('click', updateApp);
   document.getElementById('updateDataBtn').addEventListener('click', updateData);
@@ -1512,7 +1480,7 @@ function closeSettings() {
    ۳) وضعیت‌ها
    ============================================================ */
 let DB = null;
-let currentSurahNum = null;
+let currentChapterId = null;
 let currentAyahIdx = -1;
 let activeTab = 'surahs';
 const STATE_KEY = 'manavi_state_v2';
@@ -1522,7 +1490,7 @@ let currentDataVersion =
   localStorage.getItem('manavi_data_version') || DATA_VERSION;
 
 /* ============================================================
-   ۴) ابزارها
+   ۴) ابزارها و accessorها
    ============================================================ */
 function escapeHtml(s) {
   return String(s ?? '').replace(/[&<>"']/g, c => ({
@@ -1530,15 +1498,84 @@ function escapeHtml(s) {
   }[c]));
 }
 
-function ayahRangeLabel(a) {
-  if (!a.ayah_numbers || !a.ayah_numbers.length) return '؟';
-  if (a.ayah_min === a.ayah_max) return a.ayah_min;
-  return `${a.ayah_min}–${a.ayah_max}`;
+function itemMeta(it) {
+  return (it && it.meta) || {};
 }
 
-function firstAyahNumber(a) {
-  if (a.ayah_numbers && a.ayah_numbers.length) return a.ayah_numbers[0];
+function itemAyahNumbers(it) {
+  const m = itemMeta(it);
+  return Array.isArray(m.ayahNumbers) ? m.ayahNumbers : null;
+}
+
+function itemAyahFrom(it) {
+  const v = itemMeta(it).ayahFrom;
+  return (typeof v === 'number') ? v : null;
+}
+
+function itemAyahTo(it) {
+  const v = itemMeta(it).ayahTo;
+  return (typeof v === 'number') ? v : null;
+}
+
+function itemContent(it) {
+  if (!it) return [];
+  const c = it.content;
+  if (Array.isArray(c)) return c;
+  if (typeof c === 'string') return [c];
+  return [];
+}
+
+function itemFullTitle(it) {
+  return (it && it.title ? String(it.title) : '').trim();
+}
+
+function itemShortTitleRaw(it) {
+  const st = (it && it.shortTitle ? String(it.shortTitle) : '').trim();
+  if (st) return st;
+  return itemFullTitle(it);
+}
+
+function ayahRangeLabel(it) {
+  const nums = itemAyahNumbers(it);
+  if (nums && nums.length) {
+    const mn = Math.min(...nums);
+    const mx = Math.max(...nums);
+    if (mn === mx) return String(mn);
+    return `${mn}–${mx}`;
+  }
+  const from = itemAyahFrom(it);
+  const to   = itemAyahTo(it);
+  if (from != null && to != null) {
+    if (from === to) return String(from);
+    return `${from}–${to}`;
+  }
+  if (from != null) return String(from);
   return '؟';
+}
+
+function firstAyahNumber(it) {
+  const nums = itemAyahNumbers(it);
+  if (nums && nums.length) return nums[0];
+  const from = itemAyahFrom(it);
+  if (from != null) return from;
+  return '؟';
+}
+
+/* عنوان کوتاه با fallback برای آیتم‌های بدون عنوان (مثل ۴ مورد فصل ۲۵) */
+function itemShortTitle(it, maxWords = 5) {
+  const t = itemShortTitleRaw(it);
+  if (t) return shortTitle(t, maxWords);
+  const num = firstAyahNumber(it);
+  if (num !== '؟') return `آیه ${num}`;
+  return '—';
+}
+
+function itemDisplayTitle(it) {
+  const t = itemFullTitle(it);
+  if (t) return t;
+  const num = firstAyahNumber(it);
+  if (num !== '؟') return `آیه ${num}`;
+  return '—';
 }
 
 function preview(content, maxWords = 25) {
@@ -1557,34 +1594,44 @@ function shortTitle(t, maxWords = 5) {
   return words.slice(0, maxWords).join(' ') + '…';
 }
 
+function getChapterById(id) {
+  if (!DB || !Array.isArray(DB.chapters)) return null;
+  return DB.chapters.find(c => c.id === id) || null;
+}
+
+function getChapterItems(ch) {
+  return (ch && Array.isArray(ch.items)) ? ch.items : [];
+}
+
 /* ============================================================
    ۵) به‌روزرسانی هدر
    ============================================================ */
 function updateTopbar() {
   const el = document.getElementById('currentSurahLabel');
-  if (!DB || currentSurahNum == null) {
+  if (!DB || currentChapterId == null) {
     el.textContent = '';
     el.classList.remove('ayah-active');
     return;
   }
-  const surah = DB.surahs.find(s => s.number === currentSurahNum);
-  if (!surah) return;
+  const chapter = getChapterById(currentChapterId);
+  if (!chapter) return;
+  const items = getChapterItems(chapter);
 
-  if (currentAyahIdx >= 0 && surah.ayahs[currentAyahIdx]) {
-    const a = surah.ayahs[currentAyahIdx];
-    const num = ayahRangeLabel(a);
-    const title = shortTitle(a.clean_title || a.title, 8);
+  if (currentAyahIdx >= 0 && items[currentAyahIdx]) {
+    const it = items[currentAyahIdx];
+    const num = ayahRangeLabel(it);
+    const title = shortTitle(itemShortTitleRaw(it), 8);
     el.innerHTML =
-      `<span>سورهٔ ${escapeHtml(surah.name)}</span>` +
+      `<span>سورهٔ ${escapeHtml(chapter.title)}</span>` +
       `<span class="tb-sep">•</span>` +
       `<span class="tb-ayah">آیهٔ ${escapeHtml(String(num))}</span>` +
       (title ? `<span class="tb-sep">—</span><span>${escapeHtml(title)}</span>` : '');
     el.classList.add('ayah-active');
   } else {
     el.innerHTML =
-      `<span>سورهٔ ${escapeHtml(surah.name)}</span>` +
+      `<span>سورهٔ ${escapeHtml(chapter.title)}</span>` +
       `<span class="tb-sep">•</span>` +
-      `<span>${surah.ayahs.length} آیه</span>`;
+      `<span>${items.length} آیه</span>`;
     el.classList.remove('ayah-active');
   }
 }
@@ -1594,7 +1641,7 @@ function updateTopbar() {
    ============================================================ */
 function saveState(immediate = false) {
   const state = {
-    surah: currentSurahNum,
+    surah: currentChapterId,
     ayahIndex: currentAyahIdx,
     scroll: window.scrollY,
     tab: activeTab,
@@ -1626,17 +1673,24 @@ function loadDataFromServer() {
     })
     .then(json => {
       DB = json;
-      renderSidebar(DB.surahs);
+
+      // همگام‌سازی نسخه دیتا از meta فایل
+      if (json.meta && json.meta.version) {
+        currentDataVersion = json.meta.version;
+        localStorage.setItem('manavi_data_version', currentDataVersion);
+      }
+
+      renderSidebar(DB.chapters);
 
       const st = loadState();
-      const startNum = (st && st.surah) || (DB.surahs[0] && DB.surahs[0].number);
+      const startId = (st && st.surah) || (DB.chapters[0] && DB.chapters[0].id);
       const startIdx = st ? st.ayahIndex : -1;
       const savedScroll = st ? st.scroll : 0;
       const startTab = st && st.tab ? st.tab : 'surahs';
 
       switchTab(startTab, false);
       if (window.innerWidth > 820) openSidebar();
-      selectSurah(startNum, { openAyahIndex: startIdx, savedScroll });
+      selectChapter(startId, { openAyahIndex: startIdx, savedScroll });
     })
     .catch(err => {
       const isOffline = !navigator.onLine;
@@ -1694,61 +1748,62 @@ document.querySelectorAll('.sidebar-tab').forEach(btn => {
 });
 
 /* ============================================================
-   ۱۰) لیست سوره‌ها
+   ۱۰) لیست فصل‌ها (سوره‌ها)
    ============================================================ */
-function renderSidebar(surahs, filter = '') {
+function renderSidebar(chapters, filter = '') {
   const listEl = document.getElementById('surahList');
   const q = filter.trim().toLowerCase();
-  const filtered = !q ? surahs : surahs.filter(s =>
-    s.name.toLowerCase().includes(q) || String(s.number).includes(q)
+  const filtered = !q ? chapters : chapters.filter(c =>
+    String(c.title || '').toLowerCase().includes(q) || String(c.id).includes(q)
   );
-  listEl.innerHTML = filtered.map(s => `
+  listEl.innerHTML = filtered.map(c => `
     <li>
-      <a data-num="${s.number}">
-        <span class="surah-num">${s.number}.</span>
-        <span>${escapeHtml(s.name)}</span>
+      <a data-num="${c.id}">
+        <span class="surah-num">${c.id}.</span>
+        <span>${escapeHtml(c.title || '—')}</span>
       </a>
     </li>
   `).join('');
 
   listEl.querySelectorAll('a').forEach(a => {
     a.addEventListener('click', () => {
-      selectSurah(Number(a.dataset.num));
+      selectChapter(Number(a.dataset.num));
       if (window.innerWidth <= 820) closeSidebar();
     });
   });
-  highlightActiveSurah();
+  highlightActiveChapter();
 }
 
-function highlightActiveSurah() {
+function highlightActiveChapter() {
   document.querySelectorAll('#surahList a').forEach(a => {
-    a.classList.toggle('active', Number(a.dataset.num) === currentSurahNum);
+    a.classList.toggle('active', Number(a.dataset.num) === currentChapterId);
   });
 }
 
 /* ============================================================
-   ۱۱) لیست آیات
+   ۱۱) لیست آیات فصل
    ============================================================ */
-function renderAyahPanel(surah) {
+function renderAyahPanel(chapter) {
   const listEl = document.getElementById('ayahList');
   const headEl = document.getElementById('ayahPanelHead');
 
-  if (!surah) {
+  if (!chapter) {
     headEl.textContent = 'آیه‌ای نمایش داده نشده';
     listEl.innerHTML = '';
     return;
   }
 
-  headEl.textContent = `سورهٔ ${surah.name} — ${surah.ayahs.length} آیه`;
+  const items = getChapterItems(chapter);
+  headEl.textContent = `سورهٔ ${chapter.title} — ${items.length} آیه`;
 
-  listEl.innerHTML = surah.ayahs.map((a, i) => {
-    const num = firstAyahNumber(a);
-    const title = shortTitle(a.clean_title || a.title, 5);
+  listEl.innerHTML = items.map((it, i) => {
+    const num = firstAyahNumber(it);
+    const title = itemShortTitle(it, 5);
     return `
       <li>
         <a data-idx="${i}">
           <span class="ayah-title-short">${escapeHtml(title)}</span>
-          <span class="ayah-num">${num}</span>
+          <span class="ayah-num">${escapeHtml(String(num))}</span>
         </a>
       </li>
     `;
@@ -1770,32 +1825,38 @@ function renderAyahPanel(surah) {
 
 function highlightActiveChip() {
   document.querySelectorAll('#ayahList a').forEach(a => {
-    const sNum = a.dataset.surah ? Number(a.dataset.surah) : currentSurahNum;
+    const chId = a.dataset.surah ? Number(a.dataset.surah) : currentChapterId;
     const idx  = Number(a.dataset.idx);
-    a.classList.toggle('active', idx === currentAyahIdx && sNum === currentSurahNum);
+    a.classList.toggle('active', idx === currentAyahIdx && chId === currentChapterId);
   });
 }
 
 /* ============================================================
-   ۱۲) رندر سوره
+   ۱۲) رندر فصل
    ============================================================ */
-function selectSurah(num, opts = {}) {
+function selectChapter(id, opts = {}) {
   if (!DB) return;
-  const surah = DB.surahs.find(s => s.number === num);
-  if (!surah) return;
+  const chapter = getChapterById(id);
+  if (!chapter) return;
 
-  currentSurahNum = num;
+  currentChapterId = id;
   currentAyahIdx = -1;
-  highlightActiveSurah();
+  highlightActiveChapter();
 
-  contentEl.innerHTML = surah.ayahs.map((a, i) => `
+  const items = getChapterItems(chapter);
+
+  contentEl.innerHTML = items.map((it, i) => {
+    const fullTitle = itemDisplayTitle(it);
+    const range     = ayahRangeLabel(it);
+    const content   = itemContent(it);
+    return `
     <article class="ayah" data-idx="${i}">
       <div class="ayah-head" data-toggle>
         <div class="ayah-head-title">
-          <span>${escapeHtml(a.clean_title || a.title)}</span>
-          <span class="ayah-badge">آیهٔ ${ayahRangeLabel(a)}</span>
+          <span>${escapeHtml(fullTitle)}</span>
+          <span class="ayah-badge">آیهٔ ${escapeHtml(String(range))}</span>
         </div>
-        <p class="ayah-preview">${escapeHtml(preview(a.content, 25))}</p>
+        <p class="ayah-preview">${escapeHtml(preview(content, 25))}</p>
         <svg class="ayah-chevron" width="16" height="16" viewBox="0 0 24 24"
              fill="none" stroke="currentColor" stroke-width="2.5"
              stroke-linecap="round" stroke-linejoin="round">
@@ -1804,11 +1865,12 @@ function selectSurah(num, opts = {}) {
       </div>
       <div class="ayah-body">
         <div class="ayah-content">
-          ${(a.content || []).map(p => `<p>${escapeHtml(p)}</p>`).join('')}
+          ${content.map(p => `<p>${escapeHtml(p)}</p>`).join('')}
         </div>
       </div>
     </article>
-  `).join('');
+  `;
+  }).join('');
 
   contentEl.querySelectorAll('.ayah-head').forEach(head => {
     head.addEventListener('click', () => toggleAyah(head.parentElement));
@@ -1826,7 +1888,7 @@ function selectSurah(num, opts = {}) {
       const tabBtn = document.querySelector('.sidebar-tab[data-tab="ayahs"]');
       if (tabBtn) tabBtn.textContent = 'فهرست آیات';
     }
-    renderAyahPanel(surah);
+    renderAyahPanel(chapter);
   }
 
   updateTopbar();
@@ -1888,11 +1950,11 @@ function toggleAyah(ayahEl) {
 }
 
 /* ============================================================
-   ۱۴) جستجوی سوره‌ها
+   ۱۴) جستجوی فصل‌ها
    ============================================================ */
 document.getElementById('searchInput').addEventListener('input', e => {
   if (!DB) return;
-  renderSidebar(DB.surahs, e.target.value);
+  renderSidebar(DB.chapters, e.target.value);
 });
 
 /* ============================================================
@@ -2004,8 +2066,8 @@ function evaluateTokensOnText(tokens, text) {
   return Boolean(result);
 }
 
-function blockFullText(a) {
-  const parts = [a.title, a.clean_title, ...(a.content || [])];
+function itemFullText(it) {
+  const parts = [itemFullTitle(it), itemShortTitleRaw(it), ...itemContent(it)];
   return parts.filter(Boolean).join(' ');
 }
 
@@ -2015,8 +2077,8 @@ function positiveTermsOf(tokens) {
     .map(t => t.value);
 }
 
-function makeSearchSnippet(a, tokens, maxLen = 180) {
-  const text = (a.content || []).join(' ').replace(/\s+/g, ' ').trim();
+function makeSearchSnippet(it, tokens, maxLen = 180) {
+  const text = itemContent(it).join(' ').replace(/\s+/g, ' ').trim();
   if (!text) return '';
   const posTerms = tokens.filter(t => t.type === 'term' && !t.negative);
   let center = -1;
@@ -2132,29 +2194,30 @@ function performAyahSearch(query) {
 
   if (!tokens.length) { exitSearchMode(); return; }
 
-  const surahs = (settings.searchScope === 'current' && currentSurahNum != null)
-    ? DB.surahs.filter(s => s.number === currentSurahNum)
-    : DB.surahs;
+  const chapters = (settings.searchScope === 'current' && currentChapterId != null)
+    ? DB.chapters.filter(c => c.id === currentChapterId)
+    : DB.chapters;
 
   const limit   = settings.searchLimit;
   const results = [];
   const seen    = new Set();
   let total     = 0;
 
-  for (const surah of surahs) {
-    for (let i = 0; i < surah.ayahs.length; i++) {
-      const a = surah.ayahs[i];
-      const key = surah.number + ':' + i;
+  for (const chapter of chapters) {
+    const items = getChapterItems(chapter);
+    for (let i = 0; i < items.length; i++) {
+      const it = items[i];
+      const key = chapter.id + ':' + i;
       if (seen.has(key)) continue;
-      if (evaluateTokensOnText(tokens, blockFullText(a))) {
+      if (evaluateTokensOnText(tokens, itemFullText(it))) {
         seen.add(key);
         total++;
         if (results.length < limit) {
           results.push({
-            surahNum : surah.number,
-            surahName: surah.name,
-            ayahIdx  : i,
-            ayahData : a
+            chapterId   : chapter.id,
+            chapterTitle: chapter.title,
+            itemIdx     : i,
+            itemData    : it
           });
         }
       }
@@ -2179,18 +2242,18 @@ function renderSearchResults(results, total, tokens) {
     ? `${total} نتیجه (نمایش ${results.length})`
     : `${total} نتیجه`;
 
-  const showSurah = settings.searchScope === 'all';
+  const showChapter = settings.searchScope === 'all';
 
   listEl.innerHTML = results.map(r => {
-    const num   = firstAyahNumber(r.ayahData);
-    const title = shortTitle(r.ayahData.clean_title || r.ayahData.title, 6) || '—';
-    const snip  = makeSearchSnippet(r.ayahData, tokens);
+    const num   = firstAyahNumber(r.itemData);
+    const title = itemShortTitle(r.itemData, 6);
+    const snip  = makeSearchSnippet(r.itemData, tokens);
     const html  = highlightSearchTerms(snip, tokens);
     return `
       <li>
-        <a class="search-result-item" data-surah="${r.surahNum}" data-idx="${r.ayahIdx}">
+        <a class="search-result-item" data-surah="${r.chapterId}" data-idx="${r.itemIdx}">
           <div class="sr-head">
-            ${showSurah ? `<span class="sr-surah">${escapeHtml(r.surahName)}</span>` : ''}
+            ${showChapter ? `<span class="sr-surah">${escapeHtml(r.chapterTitle || '—')}</span>` : ''}
             <span class="ayah-title-short">${escapeHtml(title)}</span>
             <span class="ayah-num">${escapeHtml(String(num))}</span>
           </div>
@@ -2203,8 +2266,8 @@ function renderSearchResults(results, total, tokens) {
     a.addEventListener('click', () => {
       const sNum = Number(a.dataset.surah);
       const idx  = Number(a.dataset.idx);
-      if (sNum !== currentSurahNum) {
-        selectSurah(sNum, { openAyahIndex: idx, keepSearch: true });
+      if (sNum !== currentChapterId) {
+        selectChapter(sNum, { openAyahIndex: idx, keepSearch: true });
       } else {
         const el = document.querySelector(`.ayah[data-idx="${idx}"]`);
         if (el) openAyah(el);
@@ -2230,9 +2293,9 @@ function exitSearchMode() {
 
   document.querySelectorAll('.ayah-content').forEach(c => clearHighlightsInContent(c));
 
-  if (DB && currentSurahNum != null) {
-    const surah = DB.surahs.find(s => s.number === currentSurahNum);
-    renderAyahPanel(surah);
+  if (DB && currentChapterId != null) {
+    const chapter = getChapterById(currentChapterId);
+    renderAyahPanel(chapter);
   }
 }
 
@@ -2439,20 +2502,31 @@ async function updateData() {
     const json = await res.json();
     DB = json;
 
+    // نسخه از خود فایل JSON
+    if (json.meta && json.meta.version) {
+      currentDataVersion = json.meta.version;
+      localStorage.setItem('manavi_data_version', currentDataVersion);
+    } else {
+      // fallback: از sw.js
+      const server = await fetchServerVersions();
+      if (server) {
+        currentDataVersion = server.data;
+        localStorage.setItem('manavi_data_version', currentDataVersion);
+      }
+    }
+
+    setLocalVersion('data', currentDataVersion);
     const server = await fetchServerVersions();
     if (server) {
-      currentDataVersion = server.data;
-      localStorage.setItem('manavi_data_version', currentDataVersion);
-      setLocalVersion('data', currentDataVersion);
       setRemoteVersion('data', server.data);
       document.getElementById('dataVerRemote').classList.remove('newer');
     }
 
-    renderSidebar(DB.surahs);
+    renderSidebar(DB.chapters);
     if (isSearchMode) {
       rerunSearchIfActive();
     } else {
-      selectSurah(currentSurahNum, { keepSearch: false });
+      selectChapter(currentChapterId, { keepSearch: false });
     }
 
     setStatus('✓ داده‌ها با موفقیت بروزرسانی شد', 'ok');
@@ -2504,12 +2578,9 @@ applySettings();
 initSettingsUI();
 bindAyahSearch();
 
-// نمایش راهنما بر اساس حالت اجرا
 const fsHintEl = document.getElementById('fullscreenHint');
 if (fsHintEl && isInstalledApp()) fsHintEl.classList.add('visible');
 
-// اگر در حالت مرورگر بود و کاربر قبلاً فول‌اسکرین رو فعال کرده بود،
-// با اولین کلیک کاربر فعالش کن (محدودیت امنیتی مرورگر)
 if (!isInstalledApp() && settings.fullscreen) {
   const onceHandler = () => {
     document.removeEventListener('click', onceHandler);

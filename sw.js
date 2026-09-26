@@ -6,8 +6,8 @@
 
 // ⚠️ هر بار اپ رو تغییر دادی، APP_VERSION رو بامپ کن
 // ⚠️ هر بار فایل JSON رو تغییر دادی، DATA_VERSION رو بامپ کن
-const APP_VERSION  = '1.0.0';
-const DATA_VERSION = '1.0.0';
+const APP_VERSION  = '1.0.1';
+const DATA_VERSION = '1.0.1';
 
 const CACHE_APP  = 'tafsir-manavi-app-v' + APP_VERSION;
 const CACHE_DATA = 'tafsir-manavi-data';  // بدون نسخه — موقع آپدیت اپ پاک نمی‌شه
